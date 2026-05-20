@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- ===== HEAD ===== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>智投AIM+ 投放功能指南</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+</head>
+<body class="bg-[#0a0a0a] text-white overflow-x-hidden">
+
+  <!-- ===== HTML ===== -->
+  <!-- FILE:index.html -->
+
+  <!-- Navigation -->
+  <nav class="nav-fixed" id="navbar">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0066ff] to-[#00aaff] flex items-center justify-center">
+            <i class="fa-solid fa-rocket text-white text-sm"></i>
+          </div>
+          <span class="font-bold text-lg">智投AIM+</span>
+        </div>
+        <div class="hidden lg:flex items-center gap-6" id="nav-links"></div>
+        <button class="lg:hidden text-white text-xl" id="menu-btn">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-overlay" id="mobile-overlay"></div>
+  <div class="mobile-menu" id="mobile-menu">
+    <button class="absolute top-6 right-6 text-white text-xl" id="menu-close">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div id="mobile-nav-links" class="flex flex-col gap-4"></div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="relative min-h-[70vh] flex items-center justify-center pt-16 overflow-hidden">
+    <div class="hero-glow"></div>
+    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[rgba(0,102,255,0.2)] bg-[rgba(0,102,255,0.05)] mb-6">
+        <i class="fa-solid fa-sparkles text-[#00aaff] text-sm"></i>
+        <span class="text-sm text-[#00aaff]">投放功能指南一览表</span>
+      </div>
+      <h1 class="hero-title text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">智投AIM+</h1>
+      <p class="text-lg sm:text-xl text-gray-400 mb-8 max-w-2xl mx-auto">全方位投放功能指南，涵盖投放场景、策略工具、赔付规则及问题排查，助力高效智能投放</p>
+      <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
+        <div class="flex items-center gap-2"><i class="fa-solid fa-layer-group text-[#0066ff]"></i><span>4大投放场景</span></div>
+        <div class="flex items-center gap-2"><i class="fa-solid fa-wand-magic-sparkles text-[#0066ff]"></i><span>7款策略工具</span></div>
+        <div class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-[#0066ff]"></i><span>全链路赔付保障</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1: 投放场景 -->
+  <section id="scenarios" class="py-20 px-4 sm:px-6 lg:px-8 section-animate">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-12">
+        <div class="blue-line mb-4"></div>
+        <h2 class="text-3xl font-bold mb-3">一、投放场景</h2>
+        <p class="text-gray-400">四种主要智投类型，覆盖电商直播、商品引流、线索获取等核心场景</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="scenarios-grid"></div>
+    </div>
+  </section>
+
+  <!-- Section 2: 策略工具 -->
+  <section id="tools" class="py-20 px-4 sm:px-6 lg:px-8 section-animate">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-12">
+        <div class="blue-line mb-4"></div>
+        <h2 class="text-3xl font-bold mb-3">二、策略工具</h2>
+        <p class="text-gray-400">创意工具 + 拿量助手 + 效果保障，全方位提升投放效果</p>
+      </div>
+
+      <!-- Creative Tools -->
+      <div class="mb-12">
+        <h3 class="text-xl font-semibold mb-6 flex items-center gap-2">
+          <i class="fa-solid fa-palette text-[#00aaff]"></i> 创意工具
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="creative-tools-grid"></div>
+      </div>
+
+      <!-- Volume Tools -->
+      <div class="mb-12">
+        <h3 class="text-xl font-semibold mb-6 flex items-center gap-2">
+          <i class="fa-solid fa-chart-line text-[#00aaff]"></i> 拿量助手
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="volume-tools-grid"></div>
+      </div>
+
+      <!-- Guarantee Tools -->
+      <div>
+        <h3 class="text-xl font-semibold mb-6 flex items-center gap-2">
+          <i class="fa-solid fa-shield-halved text-[#00aaff]"></i> 效果保障
+        </h3>
+        <div class="grid grid-cols-1 gap-6" id="guarantee-tools-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: 投前准备 -->
+  <section id="preparation" class="py-20 px-4 sm:px-6 lg:px-8 section-animate">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-12">
+        <div class="blue-line mb-4"></div>
+        <h2 class="text-3xl font-bold mb-3">三、投前准备</h2>
+        <p class="text-gray-400">仅小店/直播需要：充值、直播间授权</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="preparation-grid"></div>
+    </div>
+  </section>
+
+  <!-- Section 4: 赔付规则 -->
+  <section id="compensation" class="py-20 px-4 sm:px-6 lg:px-8 section-animate">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-12">
+        <div class="blue-line mb-4"></div>
+        <h2 class="text-3xl font-bold mb-3">四、测试金赔付明细</h2>
+        <p class="text-gray-400">保障周期为项目首次曝光后3个自然日，分线上自动赔付和线下赔付两种方式</p>
+      </div>
+
+      <!-- Overview comparison -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12" id="compensation-overview"></div>
+
+      <!-- Compensation types -->
+      <div class="mb-12">
+        <h3 class="text-xl font-semibold mb-6">赔付类型说明</h3>
+        <div class="table-wrapper card p-0 overflow-hidden">
+          <table class="data-table" id="compensation-types-table">
+            <thead><tr><th>赔付类型</th><th>支持OG类型</th><th>赔付规则说明</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Scenes table -->
+      <div>
+        <h3 class="text-xl font-semibold mb-6">各场景赔付情况</h3>
+        <div class="table-wrapper card p-0 overflow-hidden">
+          <table class="data-table" id="compensation-scenes-table">
+            <thead><tr><th>场景</th><th>出价方式</th><th>赔付情况</th><th>自动赔付起始/周期</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: 竞价系统 -->
+  <section id="bidding" class="py-20 px-4 sm:px-6 lg:px-8 section-animate">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-12">
+        <div class="blue-line mb-4"></div>
+        <h2 class="text-3xl font-bold mb-3">五、竞价系统</h2>
+        <p class="text-gray-400">当前竞价系统主要控制因子一览</p>
+      </div>
+
+      <!-- Factors -->
+      <div class="mb-12">
+        <h3 class="text-xl font-semibold mb-6">主要控制因子</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="bidding-factors"></div>
+      </div>
+
+      <!-- Mechanism -->
+      <div class="mb-12">
+        <h3 class="text-xl font-semibold mb-6">竞价机制</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="bidding-mechanism"></div>
+      </div>
+
+      <!-- ABF Framework -->
+      <div>
+        <h3 class="text-xl font-semibold mb-6">ABF 框架</h3>
+        <div class="card" id="abf-framework"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: 问题排查 -->
+  <section id="troubleshoot" class="py-20 px-4 sm:px-6 lg:px-8 section-animate">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-12">
+        <div class="blue-line mb-4"></div>
+        <h2 class="text-3xl font-bold mb-3">六、问题Case处理判断</h2>
+        <p class="text-gray-400">效果问题排查思路与产品能力问题汇总</p>
+      </div>
+
+      <!-- Cost Issues -->
+      <div class="mb-12">
+        <h3 class="text-xl font-semibold mb-6 flex items-center gap-2">
+          <i class="fa-solid fa-triangle-exclamation text-[#ffaa44]"></i> 超成本问题排查
+        </h3>
+        <div class="card" id="cost-issues"></div>
+      </div>
+
+      <!-- Volume Issues -->
+      <div class="mb-12">
+        <h3 class="text-xl font-semibold mb-6 flex items-center gap-2">
+          <i class="fa-solid fa-arrow-trend-down text-[#ff6666]"></i> 掉量问题排查
+        </h3>
+        <div class="card" id="volume-issues"></div>
+      </div>
+
+      <!-- Product Issues -->
+      <div>
+        <h3 class="text-xl font-semibold mb-6 flex items-center gap-2">
+          <i class="fa-solid fa-bug text-[#aa77ff]"></i> 产品能力问题
+        </h3>
+        <div class="space-y-4" id="product-issues"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 7: 相关文档 -->
+  <section id="documents" class="py-20 px-4 sm:px-6 lg:px-8 section-animate">
+    <div class="max-w-7xl mx-auto">
+      <div class="mb-12">
+        <div class="blue-line mb-4"></div>
+        <h2 class="text-3xl font-bold mb-3">七、相关文档集合</h2>
+        <p class="text-gray-400">行业指引与投放工具手册汇总</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Industry Guides -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-industry text-[#00aaff]"></i> 行业指引
+          </h3>
+          <div class="space-y-3" id="industry-docs"></div>
+        </div>
+        <!-- Tool Guides -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+            <i class="fa-solid fa-wrench text-[#00aaff]"></i> 投放工具
+          </h3>
+          <div class="space-y-3" id="tool-docs"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 px-4 border-t border-[rgba(255,255,255,0.06)]">
+    <div class="max-w-7xl mx-auto text-center">
+      <div class="flex items-center justify-center gap-2 mb-4">
+        <div class="w-6 h-6 rounded-md bg-gradient-to-br from-[#0066ff] to-[#00aaff] flex items-center justify-center">
+          <i class="fa-solid fa-rocket text-white text-xs"></i>
+        </div>
+        <span class="font-semibold">智投AIM+</span>
+      </div>
+      <p class="text-gray-500 text-sm">投放功能指南一览表 · 内部参考文档</p>
+      <p class="text-gray-600 text-xs mt-2">© 2026 腾讯广告 · 智投AIM+</p>
+    </div>
+  </footer>
+
+  <!-- /FILE:index.html -->
+
+  <style>
+    /* ===== STYLE ===== */
+    /* FILE:style.css */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; }
+
+    /* Navigation */
+    .nav-fixed {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: all 0.3s ease;
+    }
+    .nav-link { position: relative; color: #888; transition: color 0.3s; }
+    .nav-link:hover, .nav-link.active { color: #00aaff; }
+    .nav-link.active::after {
+      content: ''; position: absolute; bottom: -4px; left: 50%; transform: translateX(-50%);
+      width: 20px; height: 2px; background: linear-gradient(90deg, #0066ff, #00aaff); border-radius: 1px;
+    }
+
+    /* Hero */
+    .hero-glow {
+      position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(0,102,255,0.12) 0%, rgba(0,170,255,0.04) 40%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-title {
+      background: linear-gradient(135deg, #ffffff 0%, #00aaff 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .blue-line {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, #0066ff, #00aaff);
+      border-radius: 2px;
+    }
+
+    /* Cards */
+    .card {
+      background: #1a1a1a;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 24px;
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px) scale(1.01);
+      border-color: rgba(0,102,255,0.3);
+      box-shadow: 0 20px 60px rgba(0,102,255,0.1), 0 0 40px rgba(0,170,255,0.05);
+    }
+    .card-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(0,102,255,0.15), rgba(0,170,255,0.08));
+      display: flex; align-items: center; justify-content: center;
+      color: #00aaff; font-size: 20px;
+    }
+
+    /* Tables */
+    .data-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .data-table th {
+      background: linear-gradient(135deg, rgba(0,102,255,0.12), rgba(0,170,255,0.06));
+      padding: 12px 16px; text-align: left; font-weight: 600;
+      border-bottom: 1px solid rgba(0,102,255,0.2);
+      color: #00aaff; white-space: nowrap;
+    }
+    .data-table td {
+      padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: #ccc;
+    }
+    .data-table tr:hover td { background: rgba(0,102,255,0.04); }
+
+    /* Tags/Badges */
+    .badge {
+      display: inline-block; padding: 4px 10px; border-radius: 6px;
+      font-size: 12px; font-weight: 500;
+    }
+    .badge-blue { background: rgba(0,102,255,0.15); color: #00aaff; }
+    .badge-green { background: rgba(0,255,136,0.1); color: #00ff88; }
+    .badge-purple { background: rgba(136,0,255,0.12); color: #aa77ff; }
+    .badge-orange { background: rgba(255,136,0,0.12); color: #ffaa44; }
+
+    /* Section */
+    .section-animate { transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      position: fixed; top: 0; right: -100%; width: 280px; height: 100vh;
+      background: #111; z-index: 9999; transition: right 0.3s ease;
+      padding: 80px 24px 24px; overflow-y: auto;
+    }
+    .mobile-menu.open { right: 0; }
+    .mobile-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6); z-index: 9998;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .mobile-overlay.open { opacity: 1; pointer-events: all; }
+
+    /* Flow diagram */
+    .flow-node {
+      background: #1e1e1e; border: 1px solid rgba(0,102,255,0.2);
+      border-radius: 8px; padding: 12px 16px; text-align: center;
+      font-size: 13px; color: #ddd;
+    }
+    .flow-arrow { color: #0066ff; font-size: 18px; }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #111; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+    /* Responsive table wrapper */
+    .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .table-wrapper::-webkit-scrollbar { height: 4px; }
+
+    /* Tooltip */
+    .tooltip-trigger { position: relative; cursor: help; border-bottom: 1px dashed #555; }
+    /* /FILE:style.css */
+  </style>
+
+  <script>
+    /* ===== DATA ===== */
+    // FILE:data.js
+    window.appData = {
+      navItems: [
+        { id: 'scenarios', label: '投放场景' },
+        { id: 'tools', label: '策略工具' },
+        { id: 'preparation', label: '投前准备' },
+        { id: 'compensation', label: '赔付规则' },
+        { id: 'bidding', label: '竞价系统' },
+        { id: 'troubleshoot', label: '问题排查' },
+        { id: 'documents', label: '相关文档' }
+      ],
+      scenarios: [
+        {
+          title: '小店艾米',
+          subtitle: '短直双开 / 单链路 / 全店托管',
+          icon: 'fa-store',
+          desc: '支持短直双开（直播+直购同时投放）、小店单链路（推直播/推直购）、全店托管（多品测爆）三种模式',
+          badge: '核心场景',
+          badgeClass: 'badge-blue',
+          modes: ['短直双开：同时推直播+直购', '单链路智投：推直播 或 推直购', '全店托管：多品测爆']
+        },
+        {
+          title: '商品智投',
+          subtitle: 'CID / 引流小程序',
+          icon: 'fa-cart-shopping',
+          desc: '适配域外开店引流需求，支持CID和引流小程序链路，电商场景专属',
+          badge: '电商艾米',
+          badgeClass: 'badge-green',
+          modes: ['CID链路投放', '引流小程序', '域外开店引流']
+        },
+        {
+          title: '线索艾米',
+          subtitle: '线索留资 / 企微深度转化',
+          icon: 'fa-user-plus',
+          desc: '线索留资场景，通过企微进行深度转化，支持加企业微信客服、表单预约、确认意向等出价方式',
+          badge: '线索场景',
+          badgeClass: 'badge-purple',
+          modes: ['加企业微信客服', '表单预约', '确认意向']
+        },
+        {
+          title: '极简智投',
+          subtitle: '极简版推直播间 / 推商品',
+          icon: 'fa-bolt',
+          desc: '后续智投迭代版本，包含全部能力后进行迭代及灰度上线，适合快速起量',
+          badge: '极简版',
+          badgeClass: 'badge-orange',
+          modes: ['极简版-推直播间', '极简版-推商品', '快速搭建投放']
+        }
+      ],
+      tools: {
+        creative: [
+          {
+            name: '全库智选',
+            icon: 'fa-wand-magic-sparkles',
+            desc: '引用同账户下同推广产品的优质历史组件自动进行广告搭建，高效补充创意',
+            target: '适配目标：基建补充',
+            audience: '全类型客户，历史跑量账户优先开启',
+            tag: 'NEW'
+          },
+          {
+            name: 'AIGC创意',
+            icon: 'fa-robot',
+            desc: '系统利用AIGC，基于客户原有广告素材及推广产品，自动衍生出适配腾讯全流量的多规格素材',
+            target: '适配目标：基建补充',
+            audience: '可接受AI生成素材类型客户',
+            tag: 'NEW'
+          },
+          {
+            name: '创意优投',
+            icon: 'fa-star',
+            desc: '支持客户就项目下判定的优质素材进行追加预算+出价进行测投',
+            target: '适配目标：素材追测',
+            audience: '历史素材众多，希望对判定优质创意进行预算追加投放',
+            tag: ''
+          }
+        ],
+        volume: [
+          {
+            name: '直播快推',
+            icon: 'fa-rocket',
+            desc: '支持客户为项目单独指定一笔预算，交给系统激进探索，提升项目的起量和跑量速度',
+            target: '适配目标：拓量',
+            scenarios: '①冷启动期希望快速获量 ②特定节点加速跑量 ③广告衰退再刺激',
+            tag: ''
+          },
+          {
+            name: '专场放量',
+            icon: 'fa-bullhorn',
+            desc: '通过新建项目并设置营销场景="专场放量"，系统自动设定以不超过成本参达成计价率目标的20%为目标进行放量探索',
+            target: '适配目标：快速放量',
+            scenarios: '①冲量冲规模：适用于新品发布、明星专场 ②可放宽成本考核',
+            tag: ''
+          },
+          {
+            name: '速推工具/FASTPASS',
+            icon: 'fa-forward-fast',
+            desc: '开启开关后，系统将自动探索投放同业务单元下、同化目标且6个月内的未转化用户，同时智能扩展定向潜在高价值用户',
+            target: '适配目标：快速放量',
+            scenarios: '依赖运营设置系数',
+            tag: ''
+          },
+          {
+            name: '新客探索',
+            icon: 'fa-users',
+            desc: '希望获取更多非老客，实现人群破圈的客户',
+            target: '适配目标：新客获取',
+            scenarios: '冷启达成',
+            tag: ''
+          }
+        ],
+        guarantee: [
+          {
+            name: '流量优投',
+            icon: 'fa-shield-halved',
+            desc: '基于不同行业流量版位产出冷启动投策略，优化客户冷启动时期投放稳定性',
+            target: '适配目标：稳定冷启达成',
+            audience: '传统品牌型客户，成本达成敏感型客户',
+            tag: ''
+          }
+        ]
+      },
+      preparation: [
+        {
+          title: '账户充值',
+          icon: 'fa-wallet',
+          steps: [
+            '点击"充值"进行推广预算准备',
+            '建议单账户预算金额大于5000元',
+            'PS：不充值，广告素材无法过审'
+          ]
+        },
+        {
+          title: '微信小店授权',
+          icon: 'fa-store',
+          steps: [
+            '步骤1：点击【工具】>【微信生态账户授权】>【微信小店授权】>【发起授权】',
+            '步骤2：输入微信小店名称点击【校验】',
+            '步骤3：操作栏中找到待授权小店，点击【扫码确认】生成二维码',
+            '由微信小店管理员在腾讯广告助手中扫码确认授权'
+          ]
+        },
+        {
+          title: '视频号授权',
+          icon: 'fa-video',
+          steps: [
+            '步骤1：点击【工具】>【微信生态账户授权】>【视频号授权】>【发起授权】or【批量授权】',
+            '批量授权单次最多支持20个视频号',
+            '步骤2：输入视频号名称点击【校验】',
+            '选择授权时间，最短3天，最长不限，可按需自定义'
+          ]
+        }
+      ],
+      compensation: {
+        overview: {
+          online: {
+            title: '线上赔付',
+            period: '项目首次曝光的那一刻之后的第7个自然日',
+            feature: '到账快，赔付门槛高',
+            limit: '①周期内累计消耗20万以上，赔付金额上限10万；②周期内累计消耗20万以下，赔付金额上限5万'
+          },
+          offline: {
+            title: '线下赔付',
+            period: '线下测试金赔付期结束后，结算测试金，一般1-2月统一结算一轮',
+            feature: '到账慢（约1-2月），赔付门槛低',
+            limit: '/'
+          }
+        },
+        types: [
+          { type: '空耗赔付', ogType: '下单OG, ROI', rule: '项目在测试期间内无转化，实际消耗 > 目标成本 × 6，赔付金额 = 项目实际消耗 × 赔付比例50%' },
+          { type: 'ROI未达成赔付', ogType: 'ROI OG', rule: '项目在已测试期内(至少6个转化)，实际成本 > 目标成本 > 0.8，赔付金额 = 项目实际消耗 × 【(目标ROI-实际ROI) / (目标ROI)】× 0.8' },
+          { type: '成本未达成赔付', ogType: '下单OG', rule: '项目在已测试期内(至少6个转化)，实际成本 > 目标成本 × 1.2，赔付金额 = 项目实际消耗 - 转化数量 × 目标成本 × 1.2' }
+        ],
+        scenes: [
+          { scene: '短直双开', bidType: '下单', compensation: '线上自动赔付', autoDate: '首日曝光在6.25日的项目生效' },
+          { scene: '短直双开', bidType: '下单-下单ROI', compensation: '线上自动赔付', autoDate: '首日曝光在9.17日的项目生效' },
+          { scene: '短直双开', bidType: '下单-24小时退款率', compensation: '无赔付', autoDate: '' },
+          { scene: '短直双开', bidType: '下单净成交', compensation: '线下赔付', autoDate: '' },
+          { scene: '单链路智投(推直播)', bidType: '下单', compensation: '线上自动赔付', autoDate: '首日曝光在10.25日的项目生效' },
+          { scene: '单链路智投(推直播)', bidType: '下单-下单ROI', compensation: '线上自动赔付', autoDate: '首次曝光时间20251224起的项目生效' },
+          { scene: '多品托管(全店商品)', bidType: '下单', compensation: '线上自动赔付', autoDate: '首次曝光时间20260204起生效' },
+          { scene: '多品托管(全店商品)', bidType: '下单-下单ROI', compensation: '线上自动赔付', autoDate: '首次曝光时间20260204起生效' },
+          { scene: '线索智投', bidType: '加企业微信客服', compensation: '线上自动赔付', autoDate: '' },
+          { scene: '线索智投', bidType: '表单预约', compensation: '线上自动赔付', autoDate: '' },
+          { scene: '商品智投(电商艾米)', bidType: '下单', compensation: '线上自动赔付', autoDate: '' },
+          { scene: '商品智投(电商艾米)', bidType: '下单-辅助ROI', compensation: '线上自动赔付', autoDate: '' }
+        ]
+      },
+      bidding: {
+        factors: [
+          { name: 'PCTR、PCVR、BID', source: '由预估PCXR及基础调价搭好eCPM' },
+          { name: '体验类因子', source: '快划率、直播时长、素材内外观看时长等策略生效地' },
+          { name: '扶持因子', source: '行业/产品腾飞、新广告冷启动探索扶持等策略生效地' }
+        ],
+        mechanism: [
+          { name: '排序机制', items: ['Basic eCPM', 'Extra eCPM', 'Quality eCPM', 'Raised eCPM'] },
+          { name: '播放控制', items: ['极端防超插', '极端防超收', '风控因子保护'] },
+          { name: '基础能力', items: ['出价算法', '模型预估', 'eGMV修正', '个性化调价'] }
+        ],
+        abf: {
+          title: 'ABF (Agent Bidding Framework) 框架',
+          items: [
+            '利用预算控制/成本控制进行调速控制',
+            '统一维度出价pacer → EBO策略',
+            '分维度进行因子调价 → 分人群/分版位/分广告位',
+            'LTR模型预估 → 粗排学精排',
+            '回流延迟&预估优化',
+            '纠偏eGMV达成偏差，作用是稳定达成',
+            '各类策略工具生效地 → 专场放量、速推工具、流量因子等'
+          ]
+        }
+      },
+      troubleshoot: {
+        cost: {
+          title: '超成本问题',
+          checks: [
+            '①客户自查：是否随意+快速改价或过多频繁负向操作',
+            '②运营排查：是否应用成本不保障工具（专场放量、fastpass、速推工具）',
+            '③运营排查：ABF调价是否异常：EBO策略',
+            '④运营排查：对比原始/修正EeGMV bias是否异常（修正后绝对值大于原值绝对值），若是，判定为反向校准问题，卷入产研优化',
+            '⑤存在3+4多因子影响，当前已明确为已知双因子踩脚，该问题预计1220全量实验修复该类问题',
+            '⑥在3情况中出现最优出价偏差较大，且计价率超高，但egmv偏差不大，初步判断可能为回流延迟异常，目前ebo回流实验预估已启动50%，覆盖全流量'
+          ]
+        },
+        volume: {
+          title: '掉量问题',
+          checks: [
+            '智投项目维度消耗日环比下降幅度≥50%',
+            '掉量前智投项目日日点击数≥100（需要数据置信）',
+            '掉量前未出现明显爆量（消耗高于最近一周日均消耗2倍）',
+            '掉量当天计价率1.2以内'
+          ],
+          solutions: [
+            '①先看扶持因子有没有波动',
+            '②如有异常，推动进一步流转分发模型or机制，提供短期解法和长期优化方案'
+          ]
+        },
+        product: [
+          {
+            name: '全库智选',
+            issue: '全库智选内外层消耗规模不一致',
+            solution: '说明当前客户账户内有部分创意来自业务单元维度授权，这部分业务单元授权组件当前无法正常外显，导致内外层不一致',
+            eta: '预计5月内完成报表一致性修复'
+          },
+          {
+            name: '落地页创编异常',
+            issue: '落地页类型不允许使用当前浮层卡片按钮文案 / 落地页创编时显示商品由于类目或店铺类型原因不支持广告推广',
+            solution: '事情常存在在智投短直双开这类复合链路投放下，落地页需要同时适配直播链路和小店直购链路。客户推广商品（小店侧）存在异常下架或在线状态异常导致',
+            eta: '后续将就分链路下可展示外显文案进行前置收敛'
+          }
+        ]
+      },
+      documents: {
+        industry: [
+          { category: '食品饮料', doc: '【小店AIM+】-新手投放指引' },
+          { category: '服饰', doc: '投放端-【微信小店篇】服饰运动行业-ADQ新客教程' },
+          { category: '消电日百', doc: '【数码家电】小店智投新客投放指南' },
+          { category: '美护', doc: '【备注销售名字】本土美妆小店智投操作方法及案例【对外】' }
+        ],
+        tools: [
+          { category: '极简智投', doc: '【AMS】小店智投-极简投放产品手册（极简智投）' },
+          { category: '原生加热', doc: '视频号原生广告支持内容推广-竞价投放指引（能力已全量）' },
+          { category: '引流智投(商品智投)', doc: '【对客说明】引流电商智投产品文档' }
+        ]
+      }
+    };
+    // /FILE:data.js
+  </script>
+
+  <script>
+    /* ===== SCRIPT ===== */
+    // FILE:navigation.js
+    function initNavigation() {
+      var data = window.appData;
+      var navLinksContainer = document.getElementById('nav-links');
+      var mobileNavContainer = document.getElementById('mobile-nav-links');
+      var menuBtn = document.getElementById('menu-btn');
+      var menuClose = document.getElementById('menu-close');
+      var mobileMenu = document.getElementById('mobile-menu');
+      var mobileOverlay = document.getElementById('mobile-overlay');
+
+      // Render nav links
+      data.navItems.forEach(function(item) {
+        var link = document.createElement('a');
+        link.href = '#' + item.id;
+        link.className = 'nav-link text-sm font-medium py-1';
+        link.textContent = item.label;
+        link.dataset.section = item.id;
+        navLinksContainer.appendChild(link);
+
+        var mobileLink = document.createElement('a');
+        mobileLink.href = '#' + item.id;
+        mobileLink.className = 'block text-gray-300 hover:text-[#00aaff] text-base py-2 border-b border-[rgba(255,255,255,0.06)] transition-colors';
+        mobileLink.textContent = item.label;
+        mobileLink.addEventListener('click', function() { closeMobileMenu(); });
+        mobileNavContainer.appendChild(mobileLink);
+      });
+
+      // Mobile menu toggle
+      function openMobileMenu() {
+        mobileMenu.classList.add('open');
+        mobileOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeMobileMenu() {
+        mobileMenu.classList.remove('open');
+        mobileOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+      menuBtn.addEventListener('click', openMobileMenu);
+      menuClose.addEventListener('click', closeMobileMenu);
+      mobileOverlay.addEventListener('click', closeMobileMenu);
+
+      // Scroll spy
+      var sections = data.navItems.map(function(item) {
+        return document.getElementById(item.id);
+      }).filter(Boolean);
+
+      var navLinks = navLinksContainer.querySelectorAll('.nav-link');
+
+      function updateActiveNav() {
+        var scrollPos = window.scrollY + 100;
+        var activeId = '';
+        sections.forEach(function(section) {
+          if (section.offsetTop <= scrollPos) {
+            activeId = section.id;
+          }
+        });
+        navLinks.forEach(function(link) {
+          if (link.dataset.section === activeId) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+
+      var scrollTimeout;
+      window.addEventListener('scroll', function() {
+        if (scrollTimeout) return;
+        scrollTimeout = setTimeout(function() {
+          scrollTimeout = null;
+          updateActiveNav();
+        }, 50);
+      });
+      updateActiveNav();
+    }
+    // /FILE:navigation.js
+
+    // FILE:scroll-animation.js
+    function initScrollAnimations() {
+      // Use GSAP for subtle card stagger animations on scroll
+      var cards = document.querySelectorAll('.card');
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            gsap.fromTo(entry.target, 
+              { opacity: 0.7, y: 20 },
+              { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }
+            );
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      cards.forEach(function(card) { observer.observe(card); });
+    }
+
+    function renderScenarios() {
+      var grid = document.getElementById('scenarios-grid');
+      var scenarios = window.appData.scenarios;
+      var html = '';
+      scenarios.forEach(function(s) {
+        html += '<div class="card">';
+        html += '<div class="flex items-start justify-between mb-4">';
+        html += '<div class="card-icon"><i class="fa-solid ' + s.icon + '"></i></div>';
+        html += '<span class="badge ' + s.badgeClass + '">' + s.badge + '</span>';
+        html += '</div>';
+        html += '<h3 class="text-xl font-bold mb-1">' + s.title + '</h3>';
+        html += '<p class="text-sm text-gray-500 mb-3">' + s.subtitle + '</p>';
+        html += '<p class="text-sm text-gray-400 mb-4">' + s.desc + '</p>';
+        html += '<div class="space-y-2">';
+        s.modes.forEach(function(mode) {
+          html += '<div class="flex items-center gap-2 text-sm text-gray-300">';
+          html += '<i class="fa-solid fa-check text-[#00aaff] text-xs"></i>';
+          html += '<span>' + mode + '</span></div>';
+        });
+        html += '</div></div>';
+      });
+      grid.innerHTML = html;
+    }
+
+    function renderTools() {
+      var tools = window.appData.tools;
+
+      // Creative tools
+      var creativeGrid = document.getElementById('creative-tools-grid');
+      var html = '';
+      tools.creative.forEach(function(t) {
+        html += '<div class="card">';
+        html += '<div class="flex items-center justify-between mb-3">';
+        html += '<div class="card-icon"><i class="fa-solid ' + t.icon + '"></i></div>';
+        if (t.tag) html += '<span class="badge badge-blue">' + t.tag + '</span>';
+        html += '</div>';
+        html += '<h4 class="text-lg font-bold mb-2">' + t.name + '</h4>';
+        html += '<p class="text-sm text-gray-400 mb-3">' + t.desc + '</p>';
+        html += '<div class="text-xs text-[#00aaff] mb-1">' + t.target + '</div>';
+        html += '<div class="text-xs text-gray-500">适配客户：' + t.audience + '</div>';
+        html += '</div>';
+      });
+      creativeGrid.innerHTML = html;
+
+      // Volume tools
+      var volumeGrid = document.getElementById('volume-tools-grid');
+      html = '';
+      tools.volume.forEach(function(t) {
+        html += '<div class="card">';
+        html += '<div class="flex items-center gap-3 mb-3">';
+        html += '<div class="card-icon"><i class="fa-solid ' + t.icon + '"></i></div>';
+        html += '<div><h4 class="text-lg font-bold">' + t.name + '</h4>';
+        html += '<div class="text-xs text-[#00aaff]">' + t.target + '</div></div>';
+        html += '</div>';
+        html += '<p class="text-sm text-gray-400 mb-3">' + t.desc + '</p>';
+        html += '<div class="text-xs text-gray-500"><i class="fa-solid fa-crosshairs text-gray-600 mr-1"></i>适配场景：' + t.scenarios + '</div>';
+        html += '</div>';
+      });
+      volumeGrid.innerHTML = html;
+
+      // Guarantee tools
+      var guaranteeGrid = document.getElementById('guarantee-tools-grid');
+      html = '';
+      tools.guarantee.forEach(function(t) {
+        html += '<div class="card flex flex-col md:flex-row md:items-center gap-4">';
+        html += '<div class="card-icon flex-shrink-0"><i class="fa-solid ' + t.icon + '"></i></div>';
+        html += '<div><h4 class="text-lg font-bold mb-1">' + t.name + '</h4>';
+        html += '<p class="text-sm text-gray-400 mb-2">' + t.desc + '</p>';
+        html += '<div class="flex flex-wrap gap-3">';
+        html += '<span class="text-xs text-[#00aaff]">' + t.target + '</span>';
+        html += '<span class="text-xs text-gray-500">适配客户：' + t.audience + '</span>';
+        html += '</div></div></div>';
+      });
+      guaranteeGrid.innerHTML = html;
+    }
+
+    function renderPreparation() {
+      var grid = document.getElementById('preparation-grid');
+      var items = window.appData.preparation;
+      var html = '';
+      items.forEach(function(item, idx) {
+        html += '<div class="card">';
+        html += '<div class="card-icon mb-4"><i class="fa-solid ' + item.icon + '"></i></div>';
+        html += '<h4 class="text-lg font-bold mb-3">' + item.title + '</h4>';
+        html += '<div class="space-y-3">';
+        item.steps.forEach(function(step, i) {
+          html += '<div class="flex items-start gap-2">';
+          html += '<span class="flex-shrink-0 w-5 h-5 rounded-full bg-[rgba(0,102,255,0.15)] text-[#00aaff] text-xs flex items-center justify-center mt-0.5">' + (i + 1) + '</span>';
+          html += '<span class="text-sm text-gray-300">' + step + '</span>';
+          html += '</div>';
+        });
+        html += '</div></div>';
+      });
+      grid.innerHTML = html;
+    }
+
+    function renderCompensation() {
+      var comp = window.appData.compensation;
+
+      // Overview cards
+      var overviewDiv = document.getElementById('compensation-overview');
+      var html = '';
+      ['online', 'offline'].forEach(function(key) {
+        var item = comp.overview[key];
+        var isOnline = key === 'online';
+        html += '<div class="card">';
+        html += '<div class="flex items-center gap-3 mb-4">';
+        html += '<div class="card-icon"><i class="fa-solid ' + (isOnline ? 'fa-bolt' : 'fa-clock') + '"></i></div>';
+        html += '<h4 class="text-lg font-bold">' + item.title + '</h4>';
+        html += '</div>';
+        html += '<div class="space-y-3 text-sm">';
+        html += '<div><span class="text-gray-500">赔付执行周期：</span><span class="text-gray-300">' + item.period + '</span></div>';
+        html += '<div><span class="text-gray-500">特点：</span><span class="' + (isOnline ? 'text-[#00ff88]' : 'text-[#ffaa44]') + '">' + item.feature + '</span></div>';
+        html += '<div><span class="text-gray-500">单体客户赔付上限：</span><span class="text-gray-300">' + item.limit + '</span></div>';
+        html += '</div></div>';
+      });
+      overviewDiv.innerHTML = html;
+
+      // Types table
+      var typesTable = document.querySelector('#compensation-types-table tbody');
+      html = '';
+      comp.types.forEach(function(t) {
+        html += '<tr><td class="font-medium text-white">' + t.type + '</td>';
+        html += '<td><span class="badge badge-blue">' + t.ogType + '</span></td>';
+        html += '<td>' + t.rule + '</td></tr>';
+      });
+      typesTable.innerHTML = html;
+
+      // Scenes table
+      var scenesTable = document.querySelector('#compensation-scenes-table tbody');
+      html = '';
+      comp.scenes.forEach(function(s) {
+        var compColor = s.compensation === '线上自动赔付' ? 'text-[#00ff88]' : (s.compensation === '无赔付' ? 'text-[#ff6666]' : 'text-[#ffaa44]');
+        html += '<tr><td class="font-medium text-white">' + s.scene + '</td>';
+        html += '<td>' + s.bidType + '</td>';
+        html += '<td class="' + compColor + '">' + s.compensation + '</td>';
+        html += '<td>' + (s.autoDate || '-') + '</td></tr>';
+      });
+      scenesTable.innerHTML = html;
+    }
+
+    function renderBidding() {
+      var bidding = window.appData.bidding;
+
+      // Factors
+      var factorsDiv = document.getElementById('bidding-factors');
+      var html = '';
+      var factorIcons = ['fa-calculator', 'fa-eye', 'fa-hand-holding-heart'];
+      bidding.factors.forEach(function(f, i) {
+        html += '<div class="card">';
+        html += '<div class="card-icon mb-3"><i class="fa-solid ' + factorIcons[i] + '"></i></div>';
+        html += '<h4 class="font-bold mb-2">' + f.name + '</h4>';
+        html += '<p class="text-sm text-gray-400">' + f.source + '</p>';
+        html += '</div>';
+      });
+      factorsDiv.innerHTML = html;
+
+      // Mechanism
+      var mechDiv = document.getElementById('bidding-mechanism');
+      html = '';
+      var mechIcons = ['fa-sort', 'fa-play', 'fa-microchip'];
+      bidding.mechanism.forEach(function(m, i) {
+        html += '<div class="card">';
+        html += '<div class="card-icon mb-3"><i class="fa-solid ' + mechIcons[i] + '"></i></div>';
+        html += '<h4 class="font-bold mb-3">' + m.name + '</h4>';
+        html += '<div class="space-y-2">';
+        m.items.forEach(function(item) {
+          html += '<div class="flex items-center gap-2 text-sm text-gray-300">';
+          html += '<i class="fa-solid fa-circle text-[#0066ff] text-[4px]"></i>';
+          html += '<span>' + item + '</span></div>';
+        });
+        html += '</div></div>';
+      });
+      mechDiv.innerHTML = html;
+
+      // ABF Framework
+      var abfDiv = document.getElementById('abf-framework');
+      html = '<h4 class="text-lg font-bold mb-4 text-[#00aaff]">' + bidding.abf.title + '</h4>';
+      html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-3">';
+      bidding.abf.items.forEach(function(item, i) {
+        html += '<div class="flex items-start gap-3 p-3 rounded-lg bg-[rgba(0,102,255,0.04)] border border-[rgba(0,102,255,0.1)]">';
+        html += '<span class="flex-shrink-0 w-6 h-6 rounded-full bg-[rgba(0,102,255,0.2)] text-[#00aaff] text-xs flex items-center justify-center">' + (i + 1) + '</span>';
+        html += '<span class="text-sm text-gray-300">' + item + '</span>';
+        html += '</div>';
+      });
+      html += '</div>';
+      abfDiv.innerHTML = html;
+    }
+
+    function renderTroubleshoot() {
+      var ts = window.appData.troubleshoot;
+
+      // Cost issues
+      var costDiv = document.getElementById('cost-issues');
+      var html = '<h4 class="font-bold mb-4 text-[#ffaa44]">排查思路</h4>';
+      html += '<div class="space-y-3">';
+      ts.cost.checks.forEach(function(check) {
+        html += '<div class="flex items-start gap-3 p-3 rounded-lg bg-[rgba(255,170,68,0.04)] border border-[rgba(255,170,68,0.1)]">';
+        html += '<i class="fa-solid fa-magnifying-glass text-[#ffaa44] text-xs mt-1 flex-shrink-0"></i>';
+        html += '<span class="text-sm text-gray-300">' + check + '</span></div>';
+      });
+      html += '</div>';
+      costDiv.innerHTML = html;
+
+      // Volume issues
+      var volDiv = document.getElementById('volume-issues');
+      html = '<h4 class="font-bold mb-4 text-[#ff6666]">排查标准</h4>';
+      html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">';
+      ts.volume.checks.forEach(function(check) {
+        html += '<div class="flex items-start gap-2 text-sm text-gray-300">';
+        html += '<i class="fa-solid fa-circle-check text-[#ff6666] text-xs mt-1 flex-shrink-0"></i>';
+        html += '<span>' + check + '</span></div>';
+      });
+      html += '</div>';
+      html += '<h4 class="font-bold mb-3 text-[#00aaff]">检查思路</h4>';
+      html += '<div class="space-y-2">';
+      ts.volume.solutions.forEach(function(sol) {
+        html += '<div class="flex items-start gap-2 text-sm text-gray-300">';
+        html += '<i class="fa-solid fa-arrow-right text-[#00aaff] text-xs mt-1 flex-shrink-0"></i>';
+        html += '<span>' + sol + '</span></div>';
+      });
+      html += '</div>';
+      volDiv.innerHTML = html;
+
+      // Product issues
+      var prodDiv = document.getElementById('product-issues');
+      html = '';
+      ts.product.forEach(function(p) {
+        html += '<div class="card">';
+        html += '<div class="flex items-center gap-2 mb-3">';
+        html += '<span class="badge badge-purple">' + p.name + '</span>';
+        html += '</div>';
+        html += '<h4 class="font-medium mb-2 text-white">' + p.issue + '</h4>';
+        html += '<p class="text-sm text-gray-400 mb-3">' + p.solution + '</p>';
+        html += '<div class="text-xs text-[#00aaff]"><i class="fa-solid fa-clock mr-1"></i>' + p.eta + '</div>';
+        html += '</div>';
+      });
+      prodDiv.innerHTML = html;
+    }
+
+    function renderDocuments() {
+      var docs = window.appData.documents;
+
+      var industryDiv = document.getElementById('industry-docs');
+      var html = '';
+      docs.industry.forEach(function(d) {
+        html += '<div class="card p-4 flex items-center gap-3">';
+        html += '<span class="badge badge-blue">' + d.category + '</span>';
+        html += '<span class="text-sm text-gray-300 flex-1">' + d.doc + '</span>';
+        html += '<i class="fa-solid fa-file-lines text-gray-600"></i>';
+        html += '</div>';
+      });
+      industryDiv.innerHTML = html;
+
+      var toolDiv = document.getElementById('tool-docs');
+      html = '';
+      docs.tools.forEach(function(d) {
+        html += '<div class="card p-4 flex items-center gap-3">';
+        html += '<span class="badge badge-green">' + d.category + '</span>';
+        html += '<span class="text-sm text-gray-300 flex-1">' + d.doc + '</span>';
+        html += '<i class="fa-solid fa-file-lines text-gray-600"></i>';
+        html += '</div>';
+      });
+      toolDiv.innerHTML = html;
+    }
+    // /FILE:scroll-animation.js
+
+    // FILE:main.js
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize navigation
+      initNavigation();
+
+      // Render all content sections
+      renderScenarios();
+      renderTools();
+      renderPreparation();
+      renderCompensation();
+      renderBidding();
+      renderTroubleshoot();
+      renderDocuments();
+
+      // Initialize scroll animations
+      initScrollAnimations();
+    });
+    // /FILE:main.js
+  </script>
+
+</body>
+</html>
