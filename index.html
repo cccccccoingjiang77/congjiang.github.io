@@ -52,7 +52,7 @@
       <h1 class="hero-title text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">智投AIM+</h1>
       <p class="text-lg sm:text-xl text-gray-400 mb-8 max-w-2xl mx-auto">全方位投放功能指南，涵盖投放场景、策略工具、赔付规则及问题排查，助力高效智能投放</p>
       <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
-        <div class="flex items-center gap-2"><i class="fa-solid fa-layer-group text-[#0066ff]"></i><span>4大投放场景</span></div>
+        <div class="flex items-center gap-2"><i class="fa-solid fa-layer-group text-[#0066ff]"></i><span>3大投放场景</span></div>
         <div class="flex items-center gap-2"><i class="fa-solid fa-wand-magic-sparkles text-[#0066ff]"></i><span>7款策略工具</span></div>
         <div class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-[#0066ff]"></i><span>全链路赔付保障</span></div>
       </div>
@@ -65,9 +65,9 @@
       <div class="mb-12">
         <div class="blue-line mb-4"></div>
         <h2 class="text-3xl font-bold mb-3">一、投放场景</h2>
-        <p class="text-gray-400">四种主要智投类型，覆盖电商直播、商品引流、线索获取等核心场景</p>
+        <p class="text-gray-400">三大智投场景，覆盖电商闭环、商品引流、线索获取等核心场景</p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="scenarios-grid"></div>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6" id="scenarios-grid"></div>
     </div>
   </section>
 
@@ -124,15 +124,16 @@
       <div class="mb-12">
         <div class="blue-line mb-4"></div>
         <h2 class="text-3xl font-bold mb-3">四、测试金赔付明细</h2>
-        <p class="text-gray-400">保障周期为项目首次曝光后3个自然日，分线上自动赔付和线下赔付两种方式</p>
+        <p class="text-gray-400">保障周期为项目首次曝光的那一刻开始，及其之后的3个自然日，分线上自动赔付和线下赔付两种方式</p>
       </div>
 
-      <!-- Overview comparison -->
+      <!-- Overview comparison: 线上赔付 vs 线下赔付 -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12" id="compensation-overview"></div>
 
-      <!-- Compensation types -->
+      <!-- 线下赔付类型说明（仅for线下赔付） -->
       <div class="mb-12">
-        <h3 class="text-xl font-semibold mb-6">赔付类型说明</h3>
+        <h3 class="text-xl font-semibold mb-2">线下赔付类型说明</h3>
+        <p class="text-sm text-gray-500 mb-6">以下赔付类型仅适用于线下赔付场景</p>
         <div class="table-wrapper card p-0 overflow-hidden">
           <table class="data-table" id="compensation-types-table">
             <thead><tr><th>赔付类型</th><th>支持OG类型</th><th>赔付规则说明</th></tr></thead>
@@ -141,9 +142,9 @@
         </div>
       </div>
 
-      <!-- Scenes table -->
+      <!-- 各场景赔付情况对比 -->
       <div>
-        <h3 class="text-xl font-semibold mb-6">各场景赔付情况</h3>
+        <h3 class="text-xl font-semibold mb-6">各场景赔付情况对比</h3>
         <div class="table-wrapper card p-0 overflow-hidden">
           <table class="data-table" id="compensation-scenes-table">
             <thead><tr><th>场景</th><th>出价方式</th><th>赔付情况</th><th>自动赔付起始/周期</th></tr></thead>
@@ -154,42 +155,21 @@
     </div>
   </section>
 
-  <!-- Section 5: 竞价系统 -->
-  <section id="bidding" class="py-20 px-4 sm:px-6 lg:px-8 section-animate">
-    <div class="max-w-7xl mx-auto">
-      <div class="mb-12">
-        <div class="blue-line mb-4"></div>
-        <h2 class="text-3xl font-bold mb-3">五、竞价系统</h2>
-        <p class="text-gray-400">当前竞价系统主要控制因子一览</p>
-      </div>
-
-      <!-- Factors -->
-      <div class="mb-12">
-        <h3 class="text-xl font-semibold mb-6">主要控制因子</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="bidding-factors"></div>
-      </div>
-
-      <!-- Mechanism -->
-      <div class="mb-12">
-        <h3 class="text-xl font-semibold mb-6">竞价机制</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="bidding-mechanism"></div>
-      </div>
-
-      <!-- ABF Framework -->
-      <div>
-        <h3 class="text-xl font-semibold mb-6">ABF 框架</h3>
-        <div class="card" id="abf-framework"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Section 6: 问题排查 -->
+  <!-- Section 5: 问题排查 -->
   <section id="troubleshoot" class="py-20 px-4 sm:px-6 lg:px-8 section-animate">
     <div class="max-w-7xl mx-auto">
       <div class="mb-12">
         <div class="blue-line mb-4"></div>
-        <h2 class="text-3xl font-bold mb-3">六、问题Case处理判断</h2>
-        <p class="text-gray-400">效果问题排查思路与产品能力问题汇总</p>
+        <h2 class="text-3xl font-bold mb-3">五、问题Case处理判断</h2>
+        <p class="text-gray-400">分为效果问题（超成本/掉量）与产品能力问题两大类</p>
+      </div>
+
+      <!-- 效果问题大类标题 -->
+      <div class="mb-8">
+        <h3 class="text-2xl font-bold mb-2 flex items-center gap-2">
+          <i class="fa-solid fa-chart-line text-[#00aaff]"></i> 效果问题
+        </h3>
+        <p class="text-sm text-gray-500">包含超成本和掉量两类效果问题的排查思路</p>
       </div>
 
       <!-- Cost Issues -->
@@ -208,22 +188,32 @@
         <div class="card" id="volume-issues"></div>
       </div>
 
-      <!-- Product Issues -->
-      <div>
-        <h3 class="text-xl font-semibold mb-6 flex items-center gap-2">
+      <!-- 产品能力问题大类标题 -->
+      <div class="mb-8 mt-16 pt-8 border-t border-[rgba(255,255,255,0.06)]">
+        <h3 class="text-2xl font-bold mb-2 flex items-center gap-2">
           <i class="fa-solid fa-bug text-[#aa77ff]"></i> 产品能力问题
         </h3>
-        <div class="space-y-4" id="product-issues"></div>
+        <p class="text-sm text-gray-500">当前已知的产品能力问题及对应解法</p>
+      </div>
+
+      <!-- Product Issues -->
+      <div>
+        <div class="table-wrapper card p-0 overflow-hidden">
+          <table class="data-table" id="product-issues-table">
+            <thead><tr><th>问题模块</th><th>主要问题</th><th>目前解法</th><th>预期修复时间</th></tr></thead>
+            <tbody id="product-issues"></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Section 7: 相关文档 -->
+  <!-- Section 6: 相关文档 -->
   <section id="documents" class="py-20 px-4 sm:px-6 lg:px-8 section-animate">
     <div class="max-w-7xl mx-auto">
       <div class="mb-12">
         <div class="blue-line mb-4"></div>
-        <h2 class="text-3xl font-bold mb-3">七、相关文档集合</h2>
+        <h2 class="text-3xl font-bold mb-3">六、相关文档集合</h2>
         <p class="text-gray-400">行业指引与投放工具手册汇总</p>
       </div>
 
@@ -395,46 +385,63 @@
         { id: 'tools', label: '策略工具' },
         { id: 'preparation', label: '投前准备' },
         { id: 'compensation', label: '赔付规则' },
-        { id: 'bidding', label: '竞价系统' },
         { id: 'troubleshoot', label: '问题排查' },
         { id: 'documents', label: '相关文档' }
       ],
       scenarios: [
         {
           title: '小店艾米',
-          subtitle: '短直双开 / 单链路 / 全店托管',
+          subtitle: '闭环链路',
           icon: 'fa-store',
-          desc: '支持短直双开（直播+直购同时投放）、小店单链路（推直播/推直购）、全店托管（多品测爆）三种模式',
+          desc: '覆盖电商直播全链路场景，支持短直双开、小店单链路、全店托管等多种投放模式。极简智投为小店艾米更简化版本，特点为快速创编、更简单。',
           badge: '核心场景',
           badgeClass: 'badge-blue',
-          modes: ['短直双开：同时推直播+直购', '单链路智投：推直播 或 推直购', '全店托管：多品测爆']
+          modes: [
+            '短直双开：直播+直购链路同时投放，有效拉新+链路补充',
+            '小店单链路：推直播 或 推直购，单直播间经营投放',
+            '全店托管：全店维度综合考核ROI，多品测爆',
+            '极简智投：快速创编版本，极简操作快速起量'
+          ],
+          details: {
+            shortDouble: { target: '拥有爆品直播间，且有一定拓量诉求；三率表现稳定，热招品牌优先', chain: '直播开启时：同时推广直播间+小店直购(商品卡)；直播关闭时：小店直购(商品卡)' },
+            singleChain: { target: '单直播间经营投放，或直播/直购独立考核的广告主', chain: '表达商品：仅支持单品直播间进行商品表达(会受三率治理影响)' },
+            fullStore: { target: '小白商家想实现全店维度综合考核ROI；多品测跑入场商品数多需要快速测出爆品', chain: '选商品：全天推广/小店直购(商品卡)' }
+          }
         },
         {
-          title: '商品智投',
-          subtitle: 'CID / 引流小程序',
+          title: '商品艾米',
+          subtitle: '引流小程序/CID',
           icon: 'fa-cart-shopping',
-          desc: '适配域外开店引流需求，支持CID和引流小程序链路，电商场景专属',
+          desc: '适配域外（小程序/APP）开店/引流的客户&服务商，支持CID和引流小程序链路，推商品页面跳转。',
           badge: '电商艾米',
           badgeClass: 'badge-green',
-          modes: ['CID链路投放', '引流小程序', '域外开店引流']
+          modes: [
+            '推商品-页面跳转',
+            '推平台店铺-页面跳转',
+            '推商品聚合页-页面/APP'
+          ],
+          details: {
+            target: '有域外（小程序/APP）开店/引流诉求的客户&服务商',
+            chain: '推广选择多个商品，全集合下所有商品可直接投放'
+          }
         },
         {
           title: '线索艾米',
-          subtitle: '线索留资 / 企微深度转化',
+          subtitle: '线索场景',
           icon: 'fa-user-plus',
-          desc: '线索留资场景，通过企微进行深度转化，支持加企业微信客服、表单预约、确认意向等出价方式',
+          desc: '私域型客户，通过企微后进行深度目标转化。支持加企业微信客服、表单预约、确认意向等出价方式。',
           badge: '线索场景',
           badgeClass: 'badge-purple',
-          modes: ['加企业微信客服', '表单预约', '确认意向']
-        },
-        {
-          title: '极简智投',
-          subtitle: '极简版推直播间 / 推商品',
-          icon: 'fa-bolt',
-          desc: '后续智投迭代版本，包含全部能力后进行迭代及灰度上线，适合快速起量',
-          badge: '极简版',
-          badgeClass: 'badge-orange',
-          modes: ['极简版-推直播间', '极简版-推商品', '快速搭建投放']
+          modes: [
+            '加企业微信客服',
+            '表单预约',
+            '确认意向',
+            '线索留资'
+          ],
+          details: {
+            target: '私域型客户，通过企微后进行深度目标转化',
+            chain: '目前支持组合如下'
+          }
         }
       ],
       tools: {
@@ -442,25 +449,31 @@
           {
             name: '全库智选',
             icon: 'fa-wand-magic-sparkles',
-            desc: '引用同账户下同推广产品的优质历史组件自动进行广告搭建，高效补充创意',
+            desc: '引用同账户下同推广产品的优质历史组件自动进行广告搭建，高效补充创意。支持客户自上传素材进行拉取填充外，同时支持默认全选该uid下所有有授权的视频号。支持客户反选取消，可选视频号上限100个。',
+            ability: '引用同账户下推广产品的优质历史组件自动进行广告搭建，高效补充创意。*支持客户历史自上传组件+koc授权素材拉取',
             target: '适配目标：基建补充',
-            audience: '全类型客户，历史跑量账户优先开启',
+            audience: '全类型客户。建议操作：历史跑量账户优先开启，同时创建广告时亦可手动补充',
+            service: '适配目标：基建补充',
             tag: 'NEW'
           },
           {
             name: 'AIGC创意',
             icon: 'fa-robot',
-            desc: '系统利用AIGC，基于客户原有广告素材及推广产品，自动衍生出适配腾讯全流量的多规格素材',
+            desc: '系统利用AIGC，基于客户原有广告素材及推广产品，自动衍生出适配腾讯全流量量的多规格素材。直播链路下，客户可勾选商品来进一步提升aigc创意成功率。',
+            ability: '系统利用AIGC，基于客户原有广告素材及推广产品，自动衍生出适配腾讯全流量的多规格素材',
             target: '适配目标：基建补充',
             audience: '可接受AI生成素材类型客户',
+            service: '适配目标：基建补充',
             tag: 'NEW'
           },
           {
             name: '创意优投',
             icon: 'fa-star',
-            desc: '支持客户就项目下判定的优质素材进行追加预算+出价进行测投',
+            desc: '支持客户就项目下判定的优质素材进行追加预算+出价进行测投。由于同创意且出价更高，跑量效率会优于原生创意。',
+            ability: '支持客户就项目下判定的优质素材进行追加预算+出价进行测投',
             target: '适配目标：素材追测',
-            audience: '历史素材众多，希望对判定优质创意进行预算追加投放',
+            audience: '历史素材众多，希望对判定优质创意进行预算追加投放，且可容忍一定成本上浮',
+            service: '适配目标：素材追测',
             tag: ''
           }
         ],
@@ -544,9 +557,9 @@
         overview: {
           online: {
             title: '线上赔付',
-            period: '项目首次曝光的那一刻之后的第7个自然日',
+            period: '赔付执行：广告首次投放的那一刻之后的第7个自然日',
             feature: '到账快，赔付门槛高',
-            limit: '①周期内累计消耗20万以上，赔付金额上限10万；②周期内累计消耗20万以下，赔付金额上限5万'
+            limit: '①赔付周期内累计消耗20万以上，赔付金额上限10万；②赔付周期内累计消耗20万以下，赔付金额上限5万'
           },
           offline: {
             title: '线下赔付',
@@ -555,60 +568,59 @@
             limit: '/'
           }
         },
-        types: [
+        offlineTypes: [
           { type: '空耗赔付', ogType: '下单OG, ROI', rule: '项目在测试期间内无转化，实际消耗 > 目标成本 × 6，赔付金额 = 项目实际消耗 × 赔付比例50%' },
-          { type: 'ROI未达成赔付', ogType: 'ROI OG', rule: '项目在已测试期内(至少6个转化)，实际成本 > 目标成本 > 0.8，赔付金额 = 项目实际消耗 × 【(目标ROI-实际ROI) / (目标ROI)】× 0.8' },
+          { type: 'ROI未达成赔付', ogType: 'ROI OG', rule: '项目在已测试期内(至少6个转化)，实际ROI < 目标ROI × 0.8，赔付金额 = 项目实际消耗 × 【(目标ROI-实际ROI) / (目标ROI)】× 0.8' },
           { type: '成本未达成赔付', ogType: '下单OG', rule: '项目在已测试期内(至少6个转化)，实际成本 > 目标成本 × 1.2，赔付金额 = 项目实际消耗 - 转化数量 × 目标成本 × 1.2' }
         ],
         scenes: [
-          { scene: '短直双开', bidType: '下单', compensation: '线上自动赔付', autoDate: '首日曝光在6.25日的项目生效' },
-          { scene: '短直双开', bidType: '下单-下单ROI', compensation: '线上自动赔付', autoDate: '首日曝光在9.17日的项目生效' },
-          { scene: '短直双开', bidType: '下单-24小时退款率', compensation: '无赔付', autoDate: '' },
-          { scene: '短直双开', bidType: '下单净成交', compensation: '线下赔付', autoDate: '' },
-          { scene: '单链路智投(推直播)', bidType: '下单', compensation: '线上自动赔付', autoDate: '首日曝光在10.25日的项目生效' },
-          { scene: '单链路智投(推直播)', bidType: '下单-下单ROI', compensation: '线上自动赔付', autoDate: '首次曝光时间20251224起的项目生效' },
-          { scene: '多品托管(全店商品)', bidType: '下单', compensation: '线上自动赔付', autoDate: '首次曝光时间20260204起生效' },
-          { scene: '多品托管(全店商品)', bidType: '下单-下单ROI', compensation: '线上自动赔付', autoDate: '首次曝光时间20260204起生效' },
+          { scene: '短直双开（同时推直播+小店直购）', bidType: '下单', compensation: '线上自动赔付', autoDate: '首日曝光在6.25日的项目生效' },
+          { scene: '短直双开（同时推直播+小店直购）', bidType: '下单-下单ROI', compensation: '线上自动赔付', autoDate: '首日曝光在9.17日的项目生效' },
+          { scene: '短直双开（同时推直播+小店直购）', bidType: '下单-24小时退款率', compensation: '无赔付', autoDate: '' },
+          { scene: '短直双开（同时推直播+小店直购）', bidType: '下单净成交', compensation: '线下赔付', autoDate: '' },
+          { scene: '短直双开（同时推直播+小店直购）', bidType: '24小时下单', compensation: '线下赔付', autoDate: '' },
+          { scene: '单链路智投（推直播）', bidType: '下单', compensation: '线上自动赔付', autoDate: '首日曝光在10.25日的项目生效' },
+          { scene: '单链路智投（推直播）', bidType: '下单-下单ROI', compensation: '线上自动赔付', autoDate: '首次曝光时间20251224起的项目生效' },
+          { scene: '单链路智投（推直播）', bidType: '下单-24小时退款率', compensation: '线上自动赔付', autoDate: '首次曝光时间20260313起' },
+          { scene: '单链路智投（推直播）', bidType: '下单净成交', compensation: '线下赔付', autoDate: '' },
+          { scene: '单链路智投（推直播）', bidType: '24小时下单', compensation: '线下赔付', autoDate: '' },
+          { scene: '单链路智投（推微信小店商品）', bidType: '下单', compensation: '线上自动赔付', autoDate: '首日曝光在10.25日的项目生效' },
+          { scene: '单链路智投（推微信小店商品）', bidType: '下单-下单ROI', compensation: '线上自动赔付', autoDate: '首日曝光9.17日的项目生效' },
+          { scene: '单链路智投（推微信小店商品）', bidType: '下单-24小时退款率', compensation: '无赔付', autoDate: '' },
+          { scene: '单链路智投（推微信小店商品）', bidType: '下单净成交', compensation: '线下赔付', autoDate: '' },
+          { scene: '单链路智投（推微信小店商品）', bidType: '24小时下单', compensation: '线下赔付', autoDate: '' },
+          { scene: '多品托管（全店商品）', bidType: '下单', compensation: '线上自动赔付', autoDate: '首次曝光时间20260204起生效' },
+          { scene: '多品托管（全店商品）', bidType: '下单-下单ROI', compensation: '线上自动赔付', autoDate: '首次曝光时间20260204起生效' },
+          { scene: '多品托管（全店商品）', bidType: '下单-24小时退款率', compensation: '无赔付', autoDate: '' },
+          { scene: '多品托管（全店商品）', bidType: '下单净成交', compensation: '线下赔付', autoDate: '' },
+          { scene: '极简版-推直播间', bidType: '下单', compensation: '线上自动赔付', autoDate: '首次曝光时间20260130起的项目生效' },
+          { scene: '极简版-推直播间', bidType: '下单-下单ROI', compensation: '线上自动赔付', autoDate: '首日曝光11.29日的项目起生效' },
+          { scene: '极简版-推直播间', bidType: '下单-24小时退款率', compensation: '线上自动赔付', autoDate: '首次曝光时间20260313起' },
+          { scene: '极简版-推直播间', bidType: '下单净成交', compensation: '线下赔付', autoDate: '' },
+          { scene: '极简版-推直播间', bidType: '24小时下单', compensation: '线下赔付', autoDate: '' },
+          { scene: '极简版-推商品', bidType: '下单', compensation: '线上自动赔付', autoDate: '首次曝光时间20260204起生效' },
+          { scene: '极简版-推商品', bidType: '下单-下单ROI', compensation: '线上自动赔付', autoDate: '首次曝光时间20260204起生效' },
+          { scene: '极简版-推商品', bidType: '下单净成交', compensation: '线下赔付', autoDate: '' },
+          { scene: '极简版-推商品', bidType: '下单-24小时退款率', compensation: '无赔付', autoDate: '' },
+          { scene: '极简版-推商品', bidType: '24小时下单', compensation: '线下赔付', autoDate: '' },
           { scene: '线索智投', bidType: '加企业微信客服', compensation: '线上自动赔付', autoDate: '' },
           { scene: '线索智投', bidType: '表单预约', compensation: '线上自动赔付', autoDate: '' },
-          { scene: '商品智投(电商艾米)', bidType: '下单', compensation: '线上自动赔付', autoDate: '' },
-          { scene: '商品智投(电商艾米)', bidType: '下单-辅助ROI', compensation: '线上自动赔付', autoDate: '' }
+          { scene: '线索智投', bidType: '确认意向', compensation: '线上自动赔付', autoDate: '' },
+          { scene: '商品智投（电商艾米）', bidType: '下单', compensation: '线上自动赔付', autoDate: '' },
+          { scene: '商品智投（电商艾米）', bidType: '下单-辅助ROI', compensation: '线上自动赔付', autoDate: '' },
+          { scene: '商品智投（电商艾米）', bidType: '下单-下单ROI（仅品械支持）', compensation: '无赔付', autoDate: '' }
         ]
-      },
-      bidding: {
-        factors: [
-          { name: 'PCTR、PCVR、BID', source: '由预估PCXR及基础调价搭好eCPM' },
-          { name: '体验类因子', source: '快划率、直播时长、素材内外观看时长等策略生效地' },
-          { name: '扶持因子', source: '行业/产品腾飞、新广告冷启动探索扶持等策略生效地' }
-        ],
-        mechanism: [
-          { name: '排序机制', items: ['Basic eCPM', 'Extra eCPM', 'Quality eCPM', 'Raised eCPM'] },
-          { name: '播放控制', items: ['极端防超插', '极端防超收', '风控因子保护'] },
-          { name: '基础能力', items: ['出价算法', '模型预估', 'eGMV修正', '个性化调价'] }
-        ],
-        abf: {
-          title: 'ABF (Agent Bidding Framework) 框架',
-          items: [
-            '利用预算控制/成本控制进行调速控制',
-            '统一维度出价pacer → EBO策略',
-            '分维度进行因子调价 → 分人群/分版位/分广告位',
-            'LTR模型预估 → 粗排学精排',
-            '回流延迟&预估优化',
-            '纠偏eGMV达成偏差，作用是稳定达成',
-            '各类策略工具生效地 → 专场放量、速推工具、流量因子等'
-          ]
-        }
       },
       troubleshoot: {
         cost: {
           title: '超成本问题',
+          standard: '排查标准：效果问题',
           checks: [
-            '①客户自查：是否随意+快速改价或过多频繁负向操作',
-            '②运营排查：是否应用成本不保障工具（专场放量、fastpass、速推工具）',
-            '③运营排查：ABF调价是否异常：EBO策略',
-            '④运营排查：对比原始/修正EeGMV bias是否异常（修正后绝对值大于原值绝对值），若是，判定为反向校准问题，卷入产研优化',
-            '⑤存在3+4多因子影响，当前已明确为已知双因子踩脚，该问题预计1220全量实验修复该类问题',
-            '⑥在3情况中出现最优出价偏差较大，且计价率超高，但egmv偏差不大，初步判断可能为回流延迟异常，目前ebo回流实验预估已启动50%，覆盖全流量'
+            { step: 1, title: '客户自查', desc: '是否随意+快速改价或过多频繁负向操作' },
+            { step: 2, title: '运营排查', desc: '是否应用成本不保障工具（专场放量、fastpass、速推工具）' },
+            { step: 3, title: '运营排查', desc: 'ABF调价是否异常：EBO策略' },
+            { step: 4, title: '运营排查', desc: '对比原始/修正EeGMV bias是否异常（修正后绝对值大于原值绝对值），若是，判定为反向校准问题，卷入产研优化' },
+            { step: 5, title: '多因子影响', desc: '存在3+4多因子影响，当前已明确为已知双因子踩脚，该问题预计1220全量实验修复该类问题。在3情况中出现最优出价偏差较大，且计价率超高，但egmv偏差不大，初步判断可能为回流延迟异常，目前ebo回流实验预估已启动50%，覆盖全流量。' }
           ]
         },
         volume: {
@@ -628,14 +640,20 @@
           {
             name: '全库智选',
             issue: '全库智选内外层消耗规模不一致',
-            solution: '说明当前客户账户内有部分创意来自业务单元维度授权，这部分业务单元授权组件当前无法正常外显，导致内外层不一致',
+            solution: '说明当前客户账户内有部分创意来自业务单元维度授权，这部分业务单元授权组件当前无法正常外显，导致内外层不一致。',
             eta: '预计5月内完成报表一致性修复'
           },
           {
             name: '落地页创编异常',
-            issue: '落地页类型不允许使用当前浮层卡片按钮文案 / 落地页创编时显示商品由于类目或店铺类型原因不支持广告推广',
-            solution: '事情常存在在智投短直双开这类复合链路投放下，落地页需要同时适配直播链路和小店直购链路。客户推广商品（小店侧）存在异常下架或在线状态异常导致',
-            eta: '后续将就分链路下可展示外显文案进行前置收敛'
+            issue: '落地页类型不允许使用当前浮层卡片按钮文案',
+            solution: '事情常存在在智投短直双开这类复合链路投放下，落地页需要同时适配直播链路和小店直购链路，因此浮层文案请选择「了解更多」，以保证正常创编。',
+            eta: '后续将就分链路下可展示外显文案进行前置收敛，不满足的将不显示'
+          },
+          {
+            name: '落地页创编异常',
+            issue: '落地页创编时，显示商品由于类目或店铺类型原因，不支持广告推广',
+            solution: '可能原因：客户推广商品（小店侧）存在异常下架或在线状态异常导致，可让客户自行检查商品在线状态，若商品状态正常可联系葱（lolly）进一步排查。',
+            eta: '/'
           }
         ]
       },
@@ -782,7 +800,7 @@
     function renderTools() {
       var tools = window.appData.tools;
 
-      // Creative tools
+      // Creative tools - detailed view
       var creativeGrid = document.getElementById('creative-tools-grid');
       var html = '';
       tools.creative.forEach(function(t) {
@@ -792,9 +810,11 @@
         if (t.tag) html += '<span class="badge badge-blue">' + t.tag + '</span>';
         html += '</div>';
         html += '<h4 class="text-lg font-bold mb-2">' + t.name + '</h4>';
-        html += '<p class="text-sm text-gray-400 mb-3">' + t.desc + '</p>';
-        html += '<div class="text-xs text-[#00aaff] mb-1">' + t.target + '</div>';
-        html += '<div class="text-xs text-gray-500">适配客户：' + t.audience + '</div>';
+        html += '<p class="text-sm text-gray-400 mb-4">' + t.desc + '</p>';
+        html += '<div class="space-y-2 pt-3 border-t border-[rgba(255,255,255,0.06)]">';
+        html += '<div class="flex items-start gap-2"><span class="text-xs text-[#00aaff] flex-shrink-0 mt-0.5"><i class="fa-solid fa-bullseye mr-1"></i>服务场景：</span><span class="text-xs text-gray-400">' + t.service + '</span></div>';
+        html += '<div class="flex items-start gap-2"><span class="text-xs text-[#00aaff] flex-shrink-0 mt-0.5"><i class="fa-solid fa-users mr-1"></i>适配客户：</span><span class="text-xs text-gray-400">' + t.audience + '</span></div>';
+        html += '</div>';
         html += '</div>';
       });
       creativeGrid.innerHTML = html;
@@ -866,17 +886,17 @@
         html += '<h4 class="text-lg font-bold">' + item.title + '</h4>';
         html += '</div>';
         html += '<div class="space-y-3 text-sm">';
-        html += '<div><span class="text-gray-500">赔付执行周期：</span><span class="text-gray-300">' + item.period + '</span></div>';
+        html += '<div><span class="text-gray-500">赔付结算逻辑：</span><span class="text-gray-300">' + item.period + '</span></div>';
         html += '<div><span class="text-gray-500">特点：</span><span class="' + (isOnline ? 'text-[#00ff88]' : 'text-[#ffaa44]') + '">' + item.feature + '</span></div>';
         html += '<div><span class="text-gray-500">单体客户赔付上限：</span><span class="text-gray-300">' + item.limit + '</span></div>';
         html += '</div></div>';
       });
       overviewDiv.innerHTML = html;
 
-      // Types table
+      // Offline types table (仅for线下赔付)
       var typesTable = document.querySelector('#compensation-types-table tbody');
       html = '';
-      comp.types.forEach(function(t) {
+      comp.offlineTypes.forEach(function(t) {
         html += '<tr><td class="font-medium text-white">' + t.type + '</td>';
         html += '<td><span class="badge badge-blue">' + t.ogType + '</span></td>';
         html += '<td>' + t.rule + '</td></tr>';
@@ -896,65 +916,18 @@
       scenesTable.innerHTML = html;
     }
 
-    function renderBidding() {
-      var bidding = window.appData.bidding;
-
-      // Factors
-      var factorsDiv = document.getElementById('bidding-factors');
-      var html = '';
-      var factorIcons = ['fa-calculator', 'fa-eye', 'fa-hand-holding-heart'];
-      bidding.factors.forEach(function(f, i) {
-        html += '<div class="card">';
-        html += '<div class="card-icon mb-3"><i class="fa-solid ' + factorIcons[i] + '"></i></div>';
-        html += '<h4 class="font-bold mb-2">' + f.name + '</h4>';
-        html += '<p class="text-sm text-gray-400">' + f.source + '</p>';
-        html += '</div>';
-      });
-      factorsDiv.innerHTML = html;
-
-      // Mechanism
-      var mechDiv = document.getElementById('bidding-mechanism');
-      html = '';
-      var mechIcons = ['fa-sort', 'fa-play', 'fa-microchip'];
-      bidding.mechanism.forEach(function(m, i) {
-        html += '<div class="card">';
-        html += '<div class="card-icon mb-3"><i class="fa-solid ' + mechIcons[i] + '"></i></div>';
-        html += '<h4 class="font-bold mb-3">' + m.name + '</h4>';
-        html += '<div class="space-y-2">';
-        m.items.forEach(function(item) {
-          html += '<div class="flex items-center gap-2 text-sm text-gray-300">';
-          html += '<i class="fa-solid fa-circle text-[#0066ff] text-[4px]"></i>';
-          html += '<span>' + item + '</span></div>';
-        });
-        html += '</div></div>';
-      });
-      mechDiv.innerHTML = html;
-
-      // ABF Framework
-      var abfDiv = document.getElementById('abf-framework');
-      html = '<h4 class="text-lg font-bold mb-4 text-[#00aaff]">' + bidding.abf.title + '</h4>';
-      html += '<div class="grid grid-cols-1 md:grid-cols-2 gap-3">';
-      bidding.abf.items.forEach(function(item, i) {
-        html += '<div class="flex items-start gap-3 p-3 rounded-lg bg-[rgba(0,102,255,0.04)] border border-[rgba(0,102,255,0.1)]">';
-        html += '<span class="flex-shrink-0 w-6 h-6 rounded-full bg-[rgba(0,102,255,0.2)] text-[#00aaff] text-xs flex items-center justify-center">' + (i + 1) + '</span>';
-        html += '<span class="text-sm text-gray-300">' + item + '</span>';
-        html += '</div>';
-      });
-      html += '</div>';
-      abfDiv.innerHTML = html;
-    }
-
     function renderTroubleshoot() {
       var ts = window.appData.troubleshoot;
 
-      // Cost issues
+      // Cost issues - sequential steps 1-5
       var costDiv = document.getElementById('cost-issues');
-      var html = '<h4 class="font-bold mb-4 text-[#ffaa44]">排查思路</h4>';
-      html += '<div class="space-y-3">';
+      var html = '<h4 class="font-bold mb-4 text-[#ffaa44]">排查步骤（按顺序执行）</h4>';
+      html += '<div class="space-y-4">';
       ts.cost.checks.forEach(function(check) {
-        html += '<div class="flex items-start gap-3 p-3 rounded-lg bg-[rgba(255,170,68,0.04)] border border-[rgba(255,170,68,0.1)]">';
-        html += '<i class="fa-solid fa-magnifying-glass text-[#ffaa44] text-xs mt-1 flex-shrink-0"></i>';
-        html += '<span class="text-sm text-gray-300">' + check + '</span></div>';
+        html += '<div class="flex items-start gap-4 p-4 rounded-lg bg-[rgba(255,170,68,0.04)] border border-[rgba(255,170,68,0.1)]">';
+        html += '<span class="flex-shrink-0 w-8 h-8 rounded-full bg-[rgba(255,170,68,0.15)] text-[#ffaa44] text-sm font-bold flex items-center justify-center">' + check.step + '</span>';
+        html += '<div><div class="text-sm font-semibold text-[#ffaa44] mb-1">' + check.title + '</div>';
+        html += '<span class="text-sm text-gray-300">' + check.desc + '</span></div></div>';
       });
       html += '</div>';
       costDiv.innerHTML = html;
@@ -979,18 +952,16 @@
       html += '</div>';
       volDiv.innerHTML = html;
 
-      // Product issues
+      // Product issues - table format showing issue + solution
       var prodDiv = document.getElementById('product-issues');
       html = '';
       ts.product.forEach(function(p) {
-        html += '<div class="card">';
-        html += '<div class="flex items-center gap-2 mb-3">';
-        html += '<span class="badge badge-purple">' + p.name + '</span>';
-        html += '</div>';
-        html += '<h4 class="font-medium mb-2 text-white">' + p.issue + '</h4>';
-        html += '<p class="text-sm text-gray-400 mb-3">' + p.solution + '</p>';
-        html += '<div class="text-xs text-[#00aaff]"><i class="fa-solid fa-clock mr-1"></i>' + p.eta + '</div>';
-        html += '</div>';
+        html += '<tr>';
+        html += '<td class="font-medium text-white"><span class="badge badge-purple">' + p.name + '</span></td>';
+        html += '<td class="text-white font-medium">' + p.issue + '</td>';
+        html += '<td class="text-gray-300">' + p.solution + '</td>';
+        html += '<td class="text-[#00aaff] whitespace-nowrap">' + p.eta + '</td>';
+        html += '</tr>';
       });
       prodDiv.innerHTML = html;
     }
@@ -1032,7 +1003,6 @@
       renderTools();
       renderPreparation();
       renderCompensation();
-      renderBidding();
       renderTroubleshoot();
       renderDocuments();
 
