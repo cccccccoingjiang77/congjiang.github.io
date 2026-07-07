@@ -179,7 +179,7 @@
     <div class="mb-10">
       <div class="blue-line mb-4"></div>
       <h2 class="section-title">三、抖音×腾讯客户匹配与投流天花板判断</h2>
-      <p class="text-gray-400">通过客户简称/微信小店店铺id/抖音小店名称做相似匹配（已排除"个体工商户/商行"等泛化注册名以避免误匹配）。判定规则：抖音广告消耗规模(TR×月销售额) ≥ 腾讯×6倍 → 潜力机会；3~6倍 → 平均水位；&lt;3倍 → 已充分投放。<b class="text-[#00aaff]">排序逻辑：先按天花板判断分组(潜力机会优先)，再按"预期增长空间"（腾讯正常应达到的消耗水位 − 腾讯当前实际消耗）降序排列</b>，兼顾"判断结论"与"绝对规模"两个维度</p>
+      <p class="text-gray-400">匹配逻辑：以<b class="text-[#00aaff]">抖音小店名称</b>为线索，与腾讯侧客户简称（公司全称/主体名）进行品牌词/关键词相似匹配，并结合商品类目是否同属居家日用做交叉核验；已<b class="text-[#ffaa44]">排除"个体工商户/xx商行"等泛化注册名</b>，避免因主体名过于宽泛导致误匹配到无关腾讯客户。下表同时展示<b>腾讯客户简称</b>与<b>抖音小店名称</b>两列，便于核对匹配对应关系（一个腾讯客户可能对应多个抖音小店，此时"抖音小店名称"列会列出全部小店名，以";"分隔，"抖音门店数"即为该客户匹配到的小店数量）。判定规则：抖音广告消耗规模(TR×月销售额) ≥ 腾讯×6倍 → 潜力机会；3~6倍 → 平均水位；&lt;3倍 → 已充分投放。<b class="text-[#00aaff]">排序逻辑：先按天花板判断分组(潜力机会优先)，再按"预期增长空间"（腾讯正常应达到的消耗水位 − 腾讯当前实际消耗）降序排列</b>，兼顾"判断结论"与"绝对规模"两个维度</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-8" id="p3-kpis"></div>
@@ -218,7 +218,7 @@
       <h3 class="text-lg font-semibold mb-4">客户天花板判断明细表 <span class="text-xs text-gray-500 font-normal">(已按判断结论+预期增长空间排序)</span></h3>
       <div class="table-wrapper">
         <table class="dt">
-          <thead><tr><th>盘子</th><th>腾讯客户简称</th><th>抖音门店数</th><th>抖音广告消耗规模(日均预估)</th><th>腾讯正常水位区间(日均预期)</th><th>腾讯日均消耗(实际值)</th><th>预期增长空间(日均)</th><th>抖音/腾讯倍数</th><th>天花板判断</th></tr></thead>
+          <thead><tr><th>盘子</th><th>腾讯客户简称</th><th>抖音小店名称</th><th>抖音门店数</th><th>抖音广告消耗规模(日均预估)</th><th>腾讯正常水位区间(日均预期)</th><th>腾讯日均消耗(实际值)</th><th>预期增长空间(日均)</th><th>抖音/腾讯倍数</th><th>天花板判断</th></tr></thead>
           <tbody id="p3-table"></tbody>
         </table>
       </div>
@@ -535,6 +535,7 @@ function renderPart3(){
       <tr>
         <td><span class="badge ${r.plate==='存量盘子'?'b-green':'b-blue'}">${r.plate}</span></td>
         <td>${r.customer}${r.group.includes('极小')?' <span class="badge b-gray" style="font-size:10px">样本极小</span>':''}</td>
+        <td class="text-gray-300" style="max-width:220px; white-space:normal;">${r.shop_list}</td>
         <td>${r.shop_cnt}</td>
         <td class="text-[#00aaff]">¥${fmtNum(r.dy_ad_daily)}</td>
         <td class="text-gray-400">¥${fmtNum(r.norm_low)} ~ ¥${fmtNum(r.norm_high)}</td>
