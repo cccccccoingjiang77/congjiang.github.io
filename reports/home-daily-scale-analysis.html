@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日百行业·三端规模盘面与增长空间分析</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif; background:#0a0a0a; color:#fff; }
+  .nav-fixed { position:fixed; top:0; left:0; right:0; z-index:1000; background:rgba(10,10,10,.88); backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,.06); }
+  .nav-link { color:#888; transition:color .25s; cursor:pointer; }
+  .nav-link:hover, .nav-link.active { color:#00aaff; }
+  .blue-line { width:60px; height:3px; background:linear-gradient(90deg,#0066ff,#00aaff); border-radius:2px; }
+  .hero-glow { position:absolute; top:-200px; left:50%; transform:translateX(-50%); width:900px; height:900px; background:radial-gradient(circle, rgba(0,102,255,.14) 0%, rgba(0,170,255,.05) 40%, transparent 70%); pointer-events:none; }
+  .hero-title { background:linear-gradient(135deg,#fff 0%,#00aaff 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .card { background:#151515; border:1px solid rgba(255,255,255,.07); border-radius:14px; padding:22px; transition:all .25s ease; }
+  .card:hover { border-color:rgba(0,102,255,.35); box-shadow:0 12px 40px rgba(0,102,255,.08); }
+  .kpi-num { font-size:28px; font-weight:800; }
+  .table-wrapper { overflow-x:auto; border-radius:12px; border:1px solid rgba(255,255,255,.08); }
+  table.dt { width:100%; border-collapse:collapse; font-size:13.5px; min-width:700px; }
+  table.dt th { background:linear-gradient(135deg, rgba(0,102,255,.14), rgba(0,170,255,.06)); padding:10px 14px; text-align:left; font-weight:600; color:#00aaff; white-space:nowrap; position:sticky; top:0; }
+  table.dt td { padding:9px 14px; border-bottom:1px solid rgba(255,255,255,.05); color:#ccc; white-space:nowrap; }
+  table.dt tr:hover td { background:rgba(0,102,255,.04); }
+  .badge { display:inline-block; padding:3px 10px; border-radius:6px; font-size:12px; font-weight:600; white-space:nowrap; }
+  .b-green { background:rgba(0,255,136,.12); color:#00ff88; }
+  .b-blue { background:rgba(0,170,255,.14); color:#00aaff; }
+  .b-orange { background:rgba(255,170,68,.14); color:#ffaa44; }
+  .b-red { background:rgba(255,90,90,.14); color:#ff6b6b; }
+  .b-gray { background:rgba(255,255,255,.08); color:#aaa; }
+  .tab-btn { padding:8px 18px; border-radius:8px; font-size:14px; cursor:pointer; color:#999; border:1px solid rgba(255,255,255,.08); transition:.2s; }
+  .tab-btn.active { background:linear-gradient(135deg,#0066ff,#00aaff); color:#fff; border-color:transparent; }
+  .acc-head { cursor:pointer; display:flex; justify-content:space-between; align-items:center; padding:14px 18px; background:#161616; border:1px solid rgba(255,255,255,.07); border-radius:10px; }
+  .acc-head:hover { border-color:rgba(0,102,255,.3); }
+  .acc-body { display:none; padding-top:10px; }
+  .acc-body.open { display:block; }
+  .chip { display:inline-block; padding:2px 8px; margin:2px; border-radius:5px; background:rgba(255,255,255,.06); font-size:11px; color:#aaa; }
+  .section-title { font-size:26px; font-weight:800; margin-bottom:6px; }
+  .scroll-x { overflow-x:auto; }
+  ::-webkit-scrollbar { height:8px; width:8px; }
+  ::-webkit-scrollbar-thumb { background:rgba(0,102,255,.3); border-radius:4px; }
+  .filter-select { background:#151515; border:1px solid rgba(255,255,255,.12); color:#ccc; padding:6px 12px; border-radius:8px; font-size:13px; }
+  .glow-num { text-shadow:0 0 20px rgba(0,170,255,.35); }
+</style>
+</head>
+<body class="overflow-x-hidden">
+
+<nav class="nav-fixed">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-[#0066ff] to-[#00aaff] flex items-center justify-center">
+          <i class="fa-solid fa-chart-pie text-white text-sm"></i>
+        </div>
+        <span class="font-bold text-lg">日百盘面 · 增长空间测算</span>
+      </div>
+      <div class="hidden lg:flex items-center gap-6 text-sm" id="nav-links">
+        <span class="nav-link" data-t="#s1">一·竞媒规模盘点</span>
+        <span class="nav-link" data-t="#s2">二·腾讯Q2盘面</span>
+        <span class="nav-link" data-t="#s3">三·客户天花板判断</span>
+        <span class="nav-link" data-t="#s4">四·结论与增长空间</span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="relative min-h-[62vh] flex items-center justify-center pt-16 overflow-hidden">
+  <div class="hero-glow"></div>
+  <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[rgba(0,102,255,.2)] bg-[rgba(0,102,255,.05)] mb-6">
+      <i class="fa-solid fa-sparkles text-[#00aaff] text-sm"></i>
+      <span class="text-sm text-[#00aaff]">2026.07 日百行业竞媒对标 × 腾讯渠道盘面分析</span>
+    </div>
+    <h1 class="hero-title text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">日用百货行业<br>增长空间测算报告</h1>
+    <p class="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">以抖音竞媒规模为对标基准，盘点腾讯渠道Q2居家日用现状，测算客户投流天花板与规模增长空间</p>
+    <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-500" id="hero-kpis"></div>
+  </div>
+</section>
+
+<!-- Part 1 -->
+<section id="s1" class="py-16 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-10">
+      <div class="blue-line mb-4"></div>
+      <h2 class="section-title">一、竞媒(抖音)规模体量盘点</h2>
+      <p class="text-gray-400">数据源：抖音小店月度榜单，分「存量盘子(清洁工具)」与「潜在盘子(生活日用+物理保暖&除臭)」两类，按月销售额取区间中位数估算GMV，结合行业投流费比(TR)测算竞媒广告投流规模</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-10" id="p1-kpis"></div>
+
+    <div class="card mb-10">
+      <h3 class="text-lg font-semibold mb-4 flex items-center gap-2"><i class="fa-solid fa-circle-info text-[#00aaff]"></i>TR投流费比取值说明</h3>
+      <p class="text-sm text-gray-400 mb-3">TR(投流/GMV)比例参考2026年千川P5P6大盘历史校准数据，按细分类目就近对标：</p>
+      <div class="flex flex-wrap gap-2" id="tr-legend"></div>
+    </div>
+
+    <div class="flex gap-3 mb-6" id="p1-tabs">
+      <div class="tab-btn active" data-plate="存量盘子">存量盘子·清洁工具</div>
+      <div class="tab-btn" data-plate="潜在盘子">潜在盘子·生活日用+物理保暖&除臭</div>
+    </div>
+
+    <div class="card mb-8">
+      <h3 class="text-lg font-semibold mb-4">细分类目规模测算</h3>
+      <div class="table-wrapper">
+        <table class="dt">
+          <thead><tr><th>细分类目</th><th>店铺数</th><th>月销售额中位数(店铺)</th><th>类目GMV总和</th><th>TR比例</th><th>月广告投流预估</th></tr></thead>
+          <tbody id="p1-cat-table"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card mb-8">
+      <h3 class="text-lg font-semibold mb-4">分细分类目 Top客户明细List</h3>
+      <div id="p1-acc"></div>
+    </div>
+
+    <div class="card">
+      <h3 class="text-lg font-semibold mb-4 flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation text-[#ffaa44]"></i>未开发头部客户池（未匹配到腾讯任何客户）</h3>
+      <p class="text-sm text-gray-400 mb-4">以下客户在抖音已有可观GMV规模，但当前<b class="text-[#ff6b6b]">未在腾讯渠道有任何投放记录</b>，是最直接的拓展蓝海</p>
+      <div class="table-wrapper">
+        <table class="dt">
+          <thead><tr><th>盘子</th><th>细分类目</th><th>抖音小店</th><th>抖音商品类目</th><th>月GMV中位数</th><th>月广告投流预估</th></tr></thead>
+          <tbody id="p1-unmatched-table"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Part 2 -->
+<section id="s2" class="py-16 px-4 sm:px-6 lg:px-8 bg-[#0d0d0d]">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-10">
+      <div class="blue-line mb-4"></div>
+      <h2 class="section-title">二、腾讯渠道Q2规模情况分析</h2>
+      <p class="text-gray-400">KPI三级行业=居家日用，链路区分：小店+直播="闭环"，其余(CID/加粉/品宣/其他/直购)="非闭环"；二级类目名称v2维度已通过"商品统一类目V2(一级～四级)"字段做过range double check</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-10" id="p2-kpis"></div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+      <div class="card">
+        <h3 class="text-lg font-semibold mb-4">闭环 vs 非闭环 消耗占比</h3>
+        <canvas id="chart-cost-loop" height="220"></canvas>
+      </div>
+      <div class="card">
+        <h3 class="text-lg font-semibold mb-4">闭环 vs 非闭环 客户数占比</h3>
+        <canvas id="chart-cust-loop" height="220"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="text-lg font-semibold mb-4">二级类目v2 × 链路闭环状态 消耗/客户数明细</h3>
+      <p class="text-sm text-gray-400 mb-4">按二级类目总消耗降序排列，双列展示闭环/非闭环拆分</p>
+      <div class="table-wrapper">
+        <table class="dt">
+          <thead><tr><th>商品二级类目v2</th><th>总消耗</th><th>总客户数</th><th>闭环消耗</th><th>闭环客户数</th><th>非闭环消耗</th><th>非闭环客户数</th><th>闭环消耗占比</th></tr></thead>
+          <tbody id="p2-cat-table"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Part 3 -->
+<section id="s3" class="py-16 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-10">
+      <div class="blue-line mb-4"></div>
+      <h2 class="section-title">三、抖音×腾讯客户匹配与投流天花板判断</h2>
+      <p class="text-gray-400">通过客户简称/微信小店店铺id/抖音小店名称做相似匹配（已排除"个体工商户/商行"等泛化注册名以避免误匹配），判定规则：抖音消耗 ≥ 腾讯×6倍 → 潜力机会；3~6倍 → 平均水位；&lt;3倍 → 已充分投放</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-8" id="p3-kpis"></div>
+
+    <div class="card mb-8">
+      <p class="text-sm text-orange-300 bg-[rgba(255,170,68,.08)] border border-[rgba(255,170,68,.25)] rounded-lg p-4">
+        <i class="fa-solid fa-circle-info mr-2"></i>
+        样本说明：抖音月销售额为区间中位数估算，部分匹配客户腾讯侧月消耗极低（&lt;1000元，多为测试/未起量客户），此时"倍数"会因分母过小而失真放大，已单独标记为「样本极小」不纳入天花板分层统计，仅"有效对比客户"(腾讯月消耗≥1000元)计入下方分层结论。
+      </p>
+    </div>
+
+    <div class="flex flex-wrap gap-3 mb-6 items-center">
+      <span class="text-sm text-gray-400 mr-2">筛选：</span>
+      <select class="filter-select" id="p3-filter-plate">
+        <option value="all">全部盘子</option>
+        <option value="存量盘子">存量盘子</option>
+        <option value="潜在盘子">潜在盘子</option>
+      </select>
+      <select class="filter-select" id="p3-filter-tier">
+        <option value="all">全部判断</option>
+        <option value="潜力机会+增长机会">潜力机会+增长机会</option>
+        <option value="平均水位">平均水位</option>
+        <option value="已充分投放">已充分投放</option>
+      </select>
+      <select class="filter-select" id="p3-filter-group">
+        <option value="有效对比客户">仅看有效对比客户</option>
+        <option value="all">含样本极小客户</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <h3 class="text-lg font-semibold mb-4">客户天花板判断明细表</h3>
+      <div class="table-wrapper">
+        <table class="dt">
+          <thead><tr><th>盘子</th><th>腾讯客户简称</th><th>抖音门店数</th><th>抖音月GMV合计</th><th>抖音广告消耗预估</th><th>腾讯月消耗估算</th><th>抖音/腾讯倍数</th><th>天花板判断</th></tr></thead>
+          <tbody id="p3-table"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Part 4 -->
+<section id="s4" class="py-16 px-4 sm:px-6 lg:px-8 bg-[#0d0d0d]">
+  <div class="max-w-7xl mx-auto">
+    <div class="mb-10">
+      <div class="blue-line mb-4"></div>
+      <h2 class="section-title">四、结论与规模增长空间</h2>
+      <p class="text-gray-400">综合竞媒规模、腾讯现状盘面与客户天花板判断，测算腾讯渠道理论增长空间</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+      <div class="card border-2 border-[rgba(0,255,136,.25)]">
+        <div class="text-sm text-gray-400 mb-2">① 已投放客户的追赶空间</div>
+        <div class="kpi-num glow-num text-[#00ff88]" id="c-gap-1">-</div>
+        <div class="text-xs text-gray-500 mt-2">「潜力机会」分层客户：抖音广告消耗预估 - 腾讯当前月消耗</div>
+      </div>
+      <div class="card border-2 border-[rgba(0,170,255,.25)]">
+        <div class="text-sm text-gray-400 mb-2">② 未开发客户池的潜在空间</div>
+        <div class="kpi-num glow-num text-[#00aaff]" id="c-gap-2">-</div>
+        <div class="text-xs text-gray-500 mt-2">抖音榜单中未匹配到腾讯任何客户的头部/腰部店铺，广告消耗预估总和</div>
+      </div>
+      <div class="card border-2 border-[rgba(170,119,255,.25)]">
+        <div class="text-sm text-gray-400 mb-2">③ 理论总增长空间（①+②）</div>
+        <div class="kpi-num glow-num text-[#aa77ff]" id="c-gap-3">-</div>
+        <div class="text-xs text-gray-500 mt-2">相对腾讯居家日用当前月化消耗的倍数见下方</div>
+      </div>
+    </div>
+
+    <div class="card mb-10">
+      <h3 class="text-lg font-semibold mb-4">当前腾讯 vs 理论空间 对比</h3>
+      <canvas id="chart-gap" height="120"></canvas>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+      <div class="card">
+        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2"><i class="fa-solid fa-box text-[#00ff88]"></i>存量盘子（清洁工具）结论</h3>
+        <div id="concl-stock" class="text-sm text-gray-300 leading-7"></div>
+      </div>
+      <div class="card">
+        <h3 class="text-lg font-semibold mb-4 flex items-center gap-2"><i class="fa-solid fa-seedling text-[#00aaff]"></i>潜在盘子（生活日用+物理保暖&除臭）结论</h3>
+        <div id="concl-potential" class="text-sm text-gray-300 leading-7"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="text-lg font-semibold mb-4 flex items-center gap-2"><i class="fa-solid fa-list-check text-[#ffaa44]"></i>运营行动建议</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-300">
+        <div class="p-4 rounded-lg bg-[rgba(0,255,136,.06)] border border-[rgba(0,255,136,.15)]">
+          <div class="font-semibold text-[#00ff88] mb-2"><i class="fa-solid fa-1 mr-1"></i>P0：潜力机会客户加速放量</div>
+          抖音已验证规模但腾讯投流不足6倍的客户（本次识别13个有效对比客户），优先1v1对接放量，用抖音案例数据佐证ROI。
+        </div>
+        <div class="p-4 rounded-lg bg-[rgba(0,170,255,.06)] border border-[rgba(0,170,255,.15)]">
+          <div class="font-semibold text-[#00aaff] mb-2"><i class="fa-solid fa-2 mr-1"></i>P1：未开发客户池冷启动</div>
+          抖音榜单中2813个未匹配店铺（对应品牌），优先按GMV规模排序，从Top50品牌开始教育触达与试投。
+        </div>
+        <div class="p-4 rounded-lg bg-[rgba(170,119,255,.06)] border border-[rgba(170,119,255,.15)]">
+          <div class="font-semibold text-[#aa77ff] mb-2"><i class="fa-solid fa-3 mr-1"></i>P2：非闭环链路提效</div>
+          腾讯居家日用非闭环链路(CID/加粉等)占比30.4%但客户数仅9.1%，说明少数客户高度依赖非闭环，需评估闭环转化潜力。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="py-10 px-4 border-t border-[rgba(255,255,255,.06)] text-center">
+  <p class="text-gray-500 text-sm">日用百货行业 · 三端规模盘面与增长空间分析报告 · 内部参考文档</p>
+  <p class="text-gray-600 text-xs mt-2">数据口径：抖音月度榜单(202607) + 腾讯Q2分链路分类目数据 · © 2026</p>
+</footer>
+
+<script>
+let DATA = null;
+
+fetch('home-daily-report-data.json').then(r=>r.json()).then(d=>{ DATA = d; render(); });
+
+function fmtWan(n){ return (n/10000).toFixed(1)+'万'; }
+function fmtYi(n){ return (n/100000000).toFixed(2)+'亿'; }
+function fmtNum(n){ return Math.round(n).toLocaleString('zh-CN'); }
+function fmtPct(n){ return (n*100).toFixed(1)+'%'; }
+
+function tierBadge(t){
+  if(t==='潜力机会+增长机会') return `<span class="badge b-green">潜力机会+增长机会</span>`;
+  if(t==='平均水位') return `<span class="badge b-blue">平均水位</span>`;
+  return `<span class="badge b-gray">已充分投放</span>`;
+}
+
+function render(){
+  renderHero();
+  renderPart1();
+  renderPart2();
+  renderPart3();
+  renderPart4();
+  initNav();
+}
+
+function renderHero(){
+  const t1 = DATA.part1_total['存量盘子'].gmv_sum + DATA.part1_total['潜在盘子'].gmv_sum;
+  const ad1 = DATA.part1_total['存量盘子'].ad_est_sum + DATA.part1_total['潜在盘子'].ad_est_sum;
+  const el = document.getElementById('hero-kpis');
+  el.innerHTML = `
+    <div class="flex items-center gap-2"><i class="fa-solid fa-store text-[#0066ff]"></i><span>抖音榜单店铺 ${DATA.match_stats.total_dy_shops} 个</span></div>
+    <div class="flex items-center gap-2"><i class="fa-solid fa-coins text-[#0066ff]"></i><span>竞媒GMV规模 ${fmtYi(t1)}</span></div>
+    <div class="flex items-center gap-2"><i class="fa-solid fa-bullseye text-[#0066ff]"></i><span>竞媒广告投流预估 ${fmtYi(ad1)}/月</span></div>
+    <div class="flex items-center gap-2"><i class="fa-solid fa-users text-[#0066ff]"></i><span>腾讯居家日用客户 ${DATA.match_stats.tx_total_customers} 个</span></div>
+  `;
+}
+
+function renderPart1(){
+  let currentPlate = '存量盘子';
+
+  function renderKpis(){
+    const s = DATA.part1_total['存量盘子'], p = DATA.part1_total['潜在盘子'];
+    document.getElementById('p1-kpis').innerHTML = `
+      <div class="card"><div class="text-xs text-gray-400 mb-1">存量盘子·店铺数</div><div class="kpi-num text-white">${s.shops}</div></div>
+      <div class="card"><div class="text-xs text-gray-400 mb-1">存量盘子·GMV规模</div><div class="kpi-num text-[#00ff88]">${fmtYi(s.gmv_sum)}/月</div><div class="text-xs text-gray-500 mt-1">广告投流预估 ${fmtWan(s.ad_est_sum)}/月</div></div>
+      <div class="card"><div class="text-xs text-gray-400 mb-1">潜在盘子·店铺数</div><div class="kpi-num text-white">${p.shops}</div></div>
+      <div class="card"><div class="text-xs text-gray-400 mb-1">潜在盘子·GMV规模</div><div class="kpi-num text-[#00aaff]">${fmtYi(p.gmv_sum)}/月</div><div class="text-xs text-gray-500 mt-1">广告投流预估 ${fmtWan(p.ad_est_sum)}/月</div></div>
+    `;
+  }
+
+  function renderTRLegend(){
+    const map = {'居家日用P5P6大盘':'15.96%','餐饮厨具P5P6大盘':'13.03%','家装灯饰光源P5P6大盘(近似)':'15.02%','电器P5P6大盘':'17.27%'};
+    const html = Object.entries(map).map(([k,v])=>`<span class="chip">${k}: <b class="text-[#00aaff]">${v}</b></span>`).join('');
+    document.getElementById('tr-legend').innerHTML = html + `<span class="chip">医药保健/美妆护肤(无直接对标，保守取居家日用均值): <b class="text-[#00aaff]">15.96%</b></span>`;
+  }
+
+  function renderCatTable(){
+    const rows = DATA.part1_summary.filter(r=>r.plate===currentPlate).sort((a,b)=>b.sum_gmv-a.sum_gmv);
+    document.getElementById('p1-cat-table').innerHTML = rows.map(r=>`
+      <tr>
+        <td>${r.cat}</td>
+        <td>${r.shops}</td>
+        <td>¥${fmtNum(r.median)}</td>
+        <td class="text-[#00ff88]">¥${fmtWan(r.sum_gmv)}</td>
+        <td>${fmtPct(r.tr)}</td>
+        <td class="text-[#00aaff]">¥${fmtWan(r.ad_est_sum)}</td>
+      </tr>
+    `).join('');
+  }
+
+  function renderAcc(){
+    const cats = [...new Set(DATA.part1_summary.filter(r=>r.plate===currentPlate).map(r=>r.cat))];
+    const catsSorted = DATA.part1_summary.filter(r=>r.plate===currentPlate).sort((a,b)=>b.sum_gmv-a.sum_gmv).map(r=>r.cat);
+    const html = catsSorted.map((cat,idx)=>{
+      const items = DATA.part1_top.filter(r=>r.plate===currentPlate && r.cat===cat).sort((a,b)=>b.amt_mid-a.amt_mid);
+      const rowsHtml = items.map(it=>`
+        <tr><td>${it.shop}</td><td>${it.dy_cat}</td><td>${it.vol}</td><td>${it.amt}</td><td class="text-[#00ff88]">¥${fmtWan(it.amt_mid)}</td><td class="text-[#00aaff]">¥${fmtNum(it.ad_est)}</td></tr>
+      `).join('');
+      return `
+        <div class="mb-3">
+          <div class="acc-head" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('i').classList.toggle('fa-chevron-down'); this.querySelector('i').classList.toggle('fa-chevron-up');">
+            <span><i class="fa-solid fa-tag text-[#00aaff] mr-2"></i>${cat} <span class="text-gray-500 text-xs ml-2">(Top${items.length}客户)</span></span>
+            <i class="fa-solid fa-chevron-down text-gray-500"></i>
+          </div>
+          <div class="acc-body ${idx===0?'open':''}">
+            <div class="table-wrapper mt-2">
+              <table class="dt">
+                <thead><tr><th>抖音小店</th><th>商品类目</th><th>月销量</th><th>月销售额</th><th>销售额中位数</th><th>广告投流预估</th></tr></thead>
+                <tbody>${rowsHtml}</tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+    document.getElementById('p1-acc').innerHTML = html;
+    if(catsSorted.length){ /* open first by default handled above */ }
+  }
+
+  function renderUnmatched(){
+    const rows = DATA.unmatched_top.sort((a,b)=>b.ad_est-a.ad_est);
+    document.getElementById('p1-unmatched-table').innerHTML = rows.map(r=>`
+      <tr>
+        <td><span class="badge ${r.plate==='存量盘子'?'b-green':'b-blue'}">${r.plate}</span></td>
+        <td>${r.cat}</td>
+        <td>${r.shop}</td>
+        <td>${r.dy_cat}</td>
+        <td class="text-[#00ff88]">¥${fmtWan(r.amt_mid)}</td>
+        <td class="text-[#00aaff]">¥${fmtNum(r.ad_est)}</td>
+      </tr>
+    `).join('');
+  }
+
+  document.querySelectorAll('#p1-tabs .tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('#p1-tabs .tab-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      currentPlate = btn.dataset.plate;
+      renderCatTable(); renderAcc();
+    });
+  });
+
+  renderKpis(); renderTRLegend(); renderCatTable(); renderAcc(); renderUnmatched();
+}
+
+function renderPart2(){
+  const t = DATA.part2_top;
+  document.getElementById('p2-kpis').innerHTML = `
+    <div class="card"><div class="text-xs text-gray-400 mb-1">Q2居家日用总消耗</div><div class="kpi-num text-white">¥${fmtWan(t.total_cost)}</div><div class="text-xs text-gray-500 mt-1">日均 ¥${fmtNum(t.total_cost/t.days)}</div></div>
+    <div class="card"><div class="text-xs text-gray-400 mb-1">总客户数</div><div class="kpi-num text-white">${t.total_cust}</div></div>
+    <div class="card"><div class="text-xs text-gray-400 mb-1">闭环(小店+直播)</div><div class="kpi-num text-[#00ff88]">${fmtPct(t.closed_cost/t.total_cost)}</div><div class="text-xs text-gray-500 mt-1">客户占比 ${fmtPct(t.closed_cust/t.total_cust)}</div></div>
+    <div class="card"><div class="text-xs text-gray-400 mb-1">非闭环(CID/加粉等)</div><div class="kpi-num text-[#ffaa44]">${fmtPct(t.open_cost/t.total_cost)}</div><div class="text-xs text-gray-500 mt-1">客户占比 ${fmtPct(t.open_cust/t.total_cust)}</div></div>
+  `;
+
+  new Chart(document.getElementById('chart-cost-loop'), {
+    type:'doughnut',
+    data:{ labels:['闭环(小店+直播)','非闭环(CID/加粉/品宣等)'], datasets:[{ data:[t.closed_cost, t.open_cost], backgroundColor:['#00ff88','#ffaa44'], borderWidth:0 }] },
+    options:{ plugins:{ legend:{ labels:{ color:'#ccc' } } } }
+  });
+  new Chart(document.getElementById('chart-cust-loop'), {
+    type:'doughnut',
+    data:{ labels:['闭环(小店+直播)','非闭环(CID/加粉/品宣等)'], datasets:[{ data:[t.closed_cust, t.open_cust], backgroundColor:['#00aaff','#ff6b6b'], borderWidth:0 }] },
+    options:{ plugins:{ legend:{ labels:{ color:'#ccc' } } } }
+  });
+
+  const rows = DATA.part2_cat.sort((a,b)=>b.total_cost-a.total_cost);
+  document.getElementById('p2-cat-table').innerHTML = rows.map(r=>`
+    <tr>
+      <td>${r.cat}</td>
+      <td class="text-white">¥${fmtWan(r.total_cost)}</td>
+      <td>${r.total_cust}</td>
+      <td class="text-[#00ff88]">¥${fmtWan(r.closed_cost)}</td>
+      <td>${r.closed_cust}</td>
+      <td class="text-[#ffaa44]">¥${fmtWan(r.open_cost)}</td>
+      <td>${r.open_cust}</td>
+      <td>${fmtPct(r.closed_pct)}</td>
+    </tr>
+  `).join('');
+}
+
+function renderPart3(){
+  const s = DATA.part3_summary;
+  const stockCnt = s['存量盘子'].total, potCnt = s['潜在盘子'].total;
+  const stockOpp = s['存量盘子'].tier_counts['潜力机会+增长机会']||0;
+  const potOpp = s['潜在盘子'].tier_counts['潜力机会+增长机会']||0;
+  document.getElementById('p3-kpis').innerHTML = `
+    <div class="card"><div class="text-xs text-gray-400 mb-1">匹配到腾讯的抖音店铺</div><div class="kpi-num text-white">${DATA.match_stats.matched_shops}<span class="text-sm text-gray-500">/${DATA.match_stats.total_dy_shops}</span></div></div>
+    <div class="card"><div class="text-xs text-gray-400 mb-1">对应唯一腾讯客户数</div><div class="kpi-num text-[#00aaff]">${DATA.match_stats.unique_tx_customers}</div></div>
+    <div class="card"><div class="text-xs text-gray-400 mb-1">存量盘子·潜力机会客户</div><div class="kpi-num text-[#00ff88]">${stockOpp}<span class="text-sm text-gray-500">/${stockCnt}(有效)</span></div></div>
+    <div class="card"><div class="text-xs text-gray-400 mb-1">潜在盘子·潜力机会客户</div><div class="kpi-num text-[#00ff88]">${potOpp}<span class="text-sm text-gray-500">/${potCnt}(有效)</span></div></div>
+  `;
+
+  function applyFilter(){
+    const plate = document.getElementById('p3-filter-plate').value;
+    const tier = document.getElementById('p3-filter-tier').value;
+    const group = document.getElementById('p3-filter-group').value;
+    let rows = DATA.part3_customers.slice();
+    if(plate!=='all') rows = rows.filter(r=>r.plate===plate);
+    if(tier!=='all') rows = rows.filter(r=>r.tier===tier);
+    if(group!=='all') rows = rows.filter(r=>r.group===group);
+    rows.sort((a,b)=>b.ratio-a.ratio);
+    document.getElementById('p3-table').innerHTML = rows.map(r=>`
+      <tr>
+        <td><span class="badge ${r.plate==='存量盘子'?'b-green':'b-blue'}">${r.plate}</span></td>
+        <td>${r.customer}${r.group.includes('极小')?' <span class="badge b-gray" style="font-size:10px">样本极小</span>':''}</td>
+        <td>${r.shop_cnt}</td>
+        <td class="text-[#00ff88]">¥${fmtWan(r.dy_gmv)}</td>
+        <td class="text-[#00aaff]">¥${fmtNum(r.dy_ad_est)}</td>
+        <td>¥${fmtNum(r.tx_month_est)}</td>
+        <td class="${r.ratio>=6?'text-[#00ff88]':r.ratio>=3?'text-[#00aaff]':'text-gray-400'} font-semibold">${r.ratio.toFixed(2)}x</td>
+        <td>${tierBadge(r.tier)}</td>
+      </tr>
+    `).join('');
+  }
+  document.getElementById('p3-filter-plate').addEventListener('change', applyFilter);
+  document.getElementById('p3-filter-tier').addEventListener('change', applyFilter);
+  document.getElementById('p3-filter-group').addEventListener('change', applyFilter);
+  applyFilter();
+}
+
+function renderPart4(){
+  const s = DATA.part3_summary;
+  const gap1 = (s['存量盘子'].opp_dy - s['存量盘子'].opp_tx) + (s['潜在盘子'].opp_dy - s['潜在盘子'].opp_tx);
+  const u = DATA.unmatched_summary;
+  const gap2 = u['存量盘子'].ad_est_sum + u['潜在盘子'].ad_est_sum;
+  const gap3 = gap1 + gap2;
+
+  document.getElementById('c-gap-1').innerText = '¥'+fmtWan(gap1)+'/月';
+  document.getElementById('c-gap-2').innerText = '¥'+fmtWan(gap2)+'/月';
+  document.getElementById('c-gap-3').innerText = '¥'+fmtWan(gap3)+'/月';
+
+  const txCurrent = DATA.part2_top.total_cost/DATA.part2_top.days*30;
+  new Chart(document.getElementById('chart-gap'), {
+    type:'bar',
+    data:{
+      labels:['腾讯当前月消耗(居家日用)','① 追赶空间','② 未开发客户池空间','理论总规模(当前+空间)'],
+      datasets:[{
+        label:'金额(元/月)',
+        data:[txCurrent, gap1, gap2, txCurrent+gap3],
+        backgroundColor:['#666','#00ff88','#00aaff','#aa77ff'],
+        borderRadius:6
+      }]
+    },
+    options:{
+      indexAxis:'y',
+      plugins:{ legend:{ display:false } },
+      scales:{ x:{ ticks:{ color:'#999' }, grid:{ color:'rgba(255,255,255,.05)' } }, y:{ ticks:{ color:'#ccc' }, grid:{ display:false } } }
+    }
+  });
+
+  document.getElementById('concl-stock').innerHTML = `
+    <p class="mb-2">· 抖音竞媒GMV规模约 <b class="text-[#00ff88]">${fmtYi(DATA.part1_total['存量盘子'].gmv_sum)}/月</b>，广告投流预估 <b>¥${fmtWan(DATA.part1_total['存量盘子'].ad_est_sum)}/月</b></p>
+    <p class="mb-2">· 头部依然被"综合日用百货(工厂/白牌店)"占据（1291/1500店铺），说明清洁工具赛道白牌竞争激烈，佳帮手/宝家洁/索邦为代表性头部品牌</p>
+    <p class="mb-2">· 匹配到腾讯的有效对比客户25个，其中<b class="text-[#00ff88]">6个"潜力机会"</b>、6个"平均水位"、13个"已充分投放"</p>
+    <p>· 未开发客户池仍有1408个抖音店铺，广告消耗预估合计 <b>¥${fmtWan(DATA.unmatched_summary['存量盘子'].ad_est_sum)}/月</b>，为最大拓展蓝海</p>
+  `;
+  document.getElementById('concl-potential').innerHTML = `
+    <p class="mb-2">· 抖音竞媒GMV规模约 <b class="text-[#00aaff]">${fmtYi(DATA.part1_total['潜在盘子'].gmv_sum)}/月</b>，是存量盘子的1.7倍，广告投流预估 <b>¥${fmtWan(DATA.part1_total['潜在盘子'].ad_est_sum)}/月</b></p>
+    <p class="mb-2">· 香薰/家居饰品类目单独突出（68店铺，GMV¥${fmtWan(23725000)}），是清洁工具盘子中不存在的新兴细分</p>
+    <p class="mb-2">· 匹配到腾讯的有效对比客户25个，其中<b class="text-[#00aaff]">7个"潜力机会"</b>，OES、维德医疗、DUKAKA等为代表</p>
+    <p>· 未开发客户池1405个店铺，广告消耗预估合计 <b>¥${fmtWan(DATA.unmatched_summary['潜在盘子'].ad_est_sum)}/月</b>，规模更大，建议优先拓展</p>
+  `;
+}
+
+function initNav(){
+  const links = document.querySelectorAll('.nav-link');
+  links.forEach(l=>{
+    l.addEventListener('click', ()=>{
+      document.querySelector(l.dataset.t).scrollIntoView({behavior:'smooth'});
+    });
+  });
+}
+</script>
+</body>
+</html>
