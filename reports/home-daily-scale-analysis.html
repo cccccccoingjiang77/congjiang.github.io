@@ -136,28 +136,36 @@
     <div class="mb-10">
       <div class="blue-line mb-4"></div>
       <h2 class="section-title">二、腾讯渠道Q2规模情况分析</h2>
-      <p class="text-gray-400">KPI三级行业=居家日用，链路区分：小店+直播="闭环"，其余(CID/加粉/品宣/其他/直购)="非闭环"；二级类目名称v2维度已通过"商品统一类目V2(一级～四级)"字段做过range double check</p>
+      <p class="text-gray-400">KPI三级行业=居家日用，链路区分：小店+直播="闭环"，其余(CID/加粉/品宣/其他/直购)="非闭环"；二级类目名称v2维度已通过"商品统一类目V2(一级～四级)"字段做过range double check；<b class="text-[#00aaff]">以下所有金额均为日均口径</b>(Q2总消耗÷91天)，便于与抖音竞媒规模直接对比</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-10" id="p2-kpis"></div>
 
+    <div class="card mb-8">
+      <h3 class="text-lg font-semibold mb-2 flex items-center gap-2"><i class="fa-solid fa-crown text-[#ffcc00]"></i>头部类目判定</h3>
+      <p class="text-xs text-gray-500 mb-4">分别在「闭环」「非闭环」链路内部计算各类目的消耗份额，识别各链路下真正的头部类目（而非被总量维度掩盖）</p>
+      <div id="p2-verdict"></div>
+    </div>
+
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
       <div class="card">
-        <h3 class="text-lg font-semibold mb-4">闭环 vs 非闭环 消耗占比</h3>
-        <canvas id="chart-cost-loop" height="220"></canvas>
+        <h3 class="text-lg font-semibold mb-1">闭环链路内 · 类目消耗/客户占比 Top8</h3>
+        <p class="text-xs text-gray-500 mb-4">占比均为「占闭环链路总量」的比例</p>
+        <canvas id="chart-closed-bar" height="260"></canvas>
       </div>
       <div class="card">
-        <h3 class="text-lg font-semibold mb-4">闭环 vs 非闭环 客户数占比</h3>
-        <canvas id="chart-cust-loop" height="220"></canvas>
+        <h3 class="text-lg font-semibold mb-1">非闭环链路内 · 类目消耗/客户占比 Top8</h3>
+        <p class="text-xs text-gray-500 mb-4">占比均为「占非闭环链路总量」的比例</p>
+        <canvas id="chart-open-bar" height="260"></canvas>
       </div>
     </div>
 
     <div class="card">
-      <h3 class="text-lg font-semibold mb-4">二级类目v2 × 链路闭环状态 消耗/客户数明细</h3>
-      <p class="text-sm text-gray-400 mb-4">按二级类目总消耗降序排列，双列展示闭环/非闭环拆分</p>
+      <h3 class="text-lg font-semibold mb-4">二级类目v2 × 链路闭环状态 日均消耗/客户数明细</h3>
+      <p class="text-sm text-gray-400 mb-4">按类目日均总消耗降序排列，双列展示闭环/非闭环拆分，并标注该类目的主导链路</p>
       <div class="table-wrapper">
         <table class="dt">
-          <thead><tr><th>商品二级类目v2</th><th>总消耗</th><th>总客户数</th><th>闭环消耗</th><th>闭环客户数</th><th>非闭环消耗</th><th>非闭环客户数</th><th>闭环消耗占比</th></tr></thead>
+          <thead><tr><th>商品二级类目v2</th><th>闭环日均消耗</th><th>闭环客户数</th><th>非闭环日均消耗</th><th>非闭环客户数</th><th>总日均消耗</th><th>闭环消耗占比</th><th>主导链路判定</th></tr></thead>
           <tbody id="p2-cat-table"></tbody>
         </table>
       </div>
@@ -171,12 +179,16 @@
     <div class="mb-10">
       <div class="blue-line mb-4"></div>
       <h2 class="section-title">三、抖音×腾讯客户匹配与投流天花板判断</h2>
-      <p class="text-gray-400">通过客户简称/微信小店店铺id/抖音小店名称做相似匹配（已排除"个体工商户/商行"等泛化注册名以避免误匹配），判定规则：抖音消耗 ≥ 腾讯×6倍 → 潜力机会；3~6倍 → 平均水位；&lt;3倍 → 已充分投放</p>
+      <p class="text-gray-400">通过客户简称/微信小店店铺id/抖音小店名称做相似匹配（已排除"个体工商户/商行"等泛化注册名以避免误匹配）。判定规则：抖音广告消耗规模(TR×月销售额) ≥ 腾讯×6倍 → 潜力机会；3~6倍 → 平均水位；&lt;3倍 → 已充分投放。<b class="text-[#00aaff]">排序逻辑：先按天花板判断分组(潜力机会优先)，再按"预期增长空间"（腾讯正常应达到的消耗水位 − 腾讯当前实际消耗）降序排列</b>，兼顾"判断结论"与"绝对规模"两个维度</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-8" id="p3-kpis"></div>
 
     <div class="card mb-8">
+      <p class="text-sm text-gray-300 bg-[rgba(0,170,255,.06)] border border-[rgba(0,170,255,.2)] rounded-lg p-4 mb-3">
+        <i class="fa-solid fa-calculator mr-2 text-[#00aaff]"></i>
+        <b>预期消耗规模测算口径</b>：① 抖音广告消耗规模 = 细分类目TR比例 × 抖音月销售额中位数；② 参照"抖音通常是腾讯3~6倍"的经验规律，反推腾讯该客户"正常水位"消耗区间 = 抖音广告消耗规模 ÷ 6 ~ ÷ 3；③ 若腾讯当前实际消耗 &lt; 正常水位下限，则差值即为该客户的"预期增长空间"，作为潜力机会客户的优先级排序依据（空间越大，优先级越高）。
+      </p>
       <p class="text-sm text-orange-300 bg-[rgba(255,170,68,.08)] border border-[rgba(255,170,68,.25)] rounded-lg p-4">
         <i class="fa-solid fa-circle-info mr-2"></i>
         样本说明：抖音月销售额为区间中位数估算，部分匹配客户腾讯侧月消耗极低（&lt;1000元，多为测试/未起量客户），此时"倍数"会因分母过小而失真放大，已单独标记为「样本极小」不纳入天花板分层统计，仅"有效对比客户"(腾讯月消耗≥1000元)计入下方分层结论。
@@ -203,10 +215,10 @@
     </div>
 
     <div class="card">
-      <h3 class="text-lg font-semibold mb-4">客户天花板判断明细表</h3>
+      <h3 class="text-lg font-semibold mb-4">客户天花板判断明细表 <span class="text-xs text-gray-500 font-normal">(已按判断结论+预期增长空间排序)</span></h3>
       <div class="table-wrapper">
         <table class="dt">
-          <thead><tr><th>盘子</th><th>腾讯客户简称</th><th>抖音门店数</th><th>抖音月GMV合计</th><th>抖音广告消耗预估</th><th>腾讯月消耗估算</th><th>抖音/腾讯倍数</th><th>天花板判断</th></tr></thead>
+          <thead><tr><th>盘子</th><th>腾讯客户简称</th><th>抖音门店数</th><th>抖音广告消耗规模(预估)</th><th>腾讯正常水位区间(预期)</th><th>腾讯月消耗估算(实际)</th><th>预期增长空间</th><th>抖音/腾讯倍数</th><th>天花板判断</th></tr></thead>
           <tbody id="p3-table"></tbody>
         </table>
       </div>
@@ -409,35 +421,75 @@ function renderPart1(){
 
 function renderPart2(){
   const t = DATA.part2_top;
+  const DAYS = t.days;
+  const closedDaily = t.closed_cost/DAYS, openDaily = t.open_cost/DAYS, totalDaily = t.total_cost/DAYS;
   document.getElementById('p2-kpis').innerHTML = `
-    <div class="card"><div class="text-xs text-gray-400 mb-1">Q2居家日用总消耗</div><div class="kpi-num text-white">¥${fmtWan(t.total_cost)}</div><div class="text-xs text-gray-500 mt-1">日均 ¥${fmtNum(t.total_cost/t.days)}</div></div>
-    <div class="card"><div class="text-xs text-gray-400 mb-1">总客户数</div><div class="kpi-num text-white">${t.total_cust}</div></div>
-    <div class="card"><div class="text-xs text-gray-400 mb-1">闭环(小店+直播)</div><div class="kpi-num text-[#00ff88]">${fmtPct(t.closed_cost/t.total_cost)}</div><div class="text-xs text-gray-500 mt-1">客户占比 ${fmtPct(t.closed_cust/t.total_cust)}</div></div>
-    <div class="card"><div class="text-xs text-gray-400 mb-1">非闭环(CID/加粉等)</div><div class="kpi-num text-[#ffaa44]">${fmtPct(t.open_cost/t.total_cost)}</div><div class="text-xs text-gray-500 mt-1">客户占比 ${fmtPct(t.open_cust/t.total_cust)}</div></div>
+    <div class="card"><div class="text-xs text-gray-400 mb-1">居家日用日均总消耗</div><div class="kpi-num text-white">¥${fmtNum(totalDaily)}</div><div class="text-xs text-gray-500 mt-1">总客户数 ${t.total_cust}</div></div>
+    <div class="card"><div class="text-xs text-gray-400 mb-1">闭环(小店+直播)日均消耗</div><div class="kpi-num text-[#00ff88]">¥${fmtNum(closedDaily)}</div><div class="text-xs text-gray-500 mt-1">占比 ${fmtPct(t.closed_cost/t.total_cost)} · 客户${t.closed_cust}个(占${fmtPct(t.closed_cust/t.total_cust)})</div></div>
+    <div class="card"><div class="text-xs text-gray-400 mb-1">非闭环(CID/加粉等)日均消耗</div><div class="kpi-num text-[#ffaa44]">¥${fmtNum(openDaily)}</div><div class="text-xs text-gray-500 mt-1">占比 ${fmtPct(t.open_cost/t.total_cost)} · 客户${t.open_cust}个(占${fmtPct(t.open_cust/t.total_cust)})</div></div>
+    <div class="card"><div class="text-xs text-gray-400 mb-1">闭环客户人均消耗集中度</div><div class="kpi-num text-[#00aaff]">${((t.closed_cost/t.total_cost)/(t.closed_cust/t.total_cust)).toFixed(2)}x</div><div class="text-xs text-gray-500 mt-1">"消耗占比÷客户占比"，＞1说明闭环客户人均消耗更高</div></div>
   `;
 
-  new Chart(document.getElementById('chart-cost-loop'), {
-    type:'doughnut',
-    data:{ labels:['闭环(小店+直播)','非闭环(CID/加粉/品宣等)'], datasets:[{ data:[t.closed_cost, t.open_cost], backgroundColor:['#00ff88','#ffaa44'], borderWidth:0 }] },
-    options:{ plugins:{ legend:{ labels:{ color:'#ccc' } } } }
+  const cats = DATA.part2_cat;
+  const totalClosedCost = cats.reduce((s,r)=>s+r.closed_cost,0);
+  const totalOpenCost = cats.reduce((s,r)=>s+r.open_cost,0);
+  const totalClosedCust = cats.reduce((s,r)=>s+r.closed_cust,0);
+  const totalOpenCust = cats.reduce((s,r)=>s+r.open_cust,0);
+
+  const closedTop = cats.slice().sort((a,b)=>b.closed_cost-a.closed_cost).slice(0,8);
+  const openTop = cats.slice().sort((a,b)=>b.open_cost-a.open_cost).slice(0,8);
+
+  const barOpt = {
+    indexAxis:'y',
+    plugins:{ legend:{ labels:{ color:'#ccc' } } },
+    scales:{ x:{ ticks:{ color:'#999', callback:v=>v+'%' }, grid:{ color:'rgba(255,255,255,.05)' } }, y:{ ticks:{ color:'#ccc' }, grid:{ display:false } } }
+  };
+  new Chart(document.getElementById('chart-closed-bar'), {
+    type:'bar',
+    data:{ labels: closedTop.map(r=>r.cat), datasets:[
+      { label:'消耗占比(闭环内)', data: closedTop.map(r=>+(r.closed_cost/totalClosedCost*100).toFixed(1)), backgroundColor:'#00ff88', borderRadius:4 },
+      { label:'客户数占比(闭环内)', data: closedTop.map(r=>+(r.closed_cust/totalClosedCust*100).toFixed(1)), backgroundColor:'#00aaff', borderRadius:4 }
+    ]},
+    options: barOpt
   });
-  new Chart(document.getElementById('chart-cust-loop'), {
-    type:'doughnut',
-    data:{ labels:['闭环(小店+直播)','非闭环(CID/加粉/品宣等)'], datasets:[{ data:[t.closed_cust, t.open_cust], backgroundColor:['#00aaff','#ff6b6b'], borderWidth:0 }] },
-    options:{ plugins:{ legend:{ labels:{ color:'#ccc' } } } }
+  new Chart(document.getElementById('chart-open-bar'), {
+    type:'bar',
+    data:{ labels: openTop.map(r=>r.cat), datasets:[
+      { label:'消耗占比(非闭环内)', data: openTop.map(r=>+(r.open_cost/totalOpenCost*100).toFixed(1)), backgroundColor:'#ffaa44', borderRadius:4 },
+      { label:'客户数占比(非闭环内)', data: openTop.map(r=>+(r.open_cust/totalOpenCust*100).toFixed(1)), backgroundColor:'#ff6b6b', borderRadius:4 }
+    ]},
+    options: barOpt
   });
 
-  const rows = DATA.part2_cat.sort((a,b)=>b.total_cost-a.total_cost);
+  const closedTop1 = closedTop[0], openTop1 = openTop[0];
+  const closedTop1Share = (closedTop1.closed_cost/totalClosedCost*100).toFixed(1);
+  const openTop1Share = (openTop1.open_cost/totalOpenCost*100).toFixed(1);
+  const nonClosedDependent = cats.filter(r=>r.total_cost>3000000 && (r.open_cost/r.total_cost)>0.5).sort((a,b)=>b.open_cost-a.open_cost).slice(0,3);
+  document.getElementById('p2-verdict').innerHTML = `
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-300">
+      <div class="p-4 rounded-lg bg-[rgba(0,255,136,.06)] border border-[rgba(0,255,136,.15)]">
+        <div class="font-semibold text-[#00ff88] mb-1"><i class="fa-solid fa-circle-check mr-1"></i>闭环链路头部类目</div>
+        <b>${closedTop1.cat}</b> 占闭环日均消耗 <b>${closedTop1Share}%</b>（日均¥${fmtNum(closedTop1.closed_cost/DAYS)}），其次为 ${closedTop[1]?closedTop[1].cat:'-'}(${closedTop[1]?(closedTop[1].closed_cost/totalClosedCost*100).toFixed(1):0}%)、${closedTop[2]?closedTop[2].cat:'-'}(${closedTop[2]?(closedTop[2].closed_cost/totalClosedCost*100).toFixed(1):0}%)
+      </div>
+      <div class="p-4 rounded-lg bg-[rgba(255,170,68,.06)] border border-[rgba(255,170,68,.15)]">
+        <div class="font-semibold text-[#ffaa44] mb-1"><i class="fa-solid fa-triangle-exclamation mr-1"></i>非闭环链路头部类目</div>
+        <b>${openTop1.cat}</b> 占非闭环日均消耗 <b>${openTop1Share}%</b>（日均¥${fmtNum(openTop1.open_cost/DAYS)}），其次为 ${openTop[1]?openTop[1].cat:'-'}(${openTop[1]?(openTop[1].open_cost/totalOpenCost*100).toFixed(1):0}%)、${openTop[2]?openTop[2].cat:'-'}(${openTop[2]?(openTop[2].open_cost/totalOpenCost*100).toFixed(1):0}%)
+      </div>
+    </div>
+    ${nonClosedDependent.length? `<p class="text-xs text-gray-500 mt-3"><i class="fa-solid fa-circle-info mr-1"></i>规模较大且高度依赖非闭环链路的类目：${nonClosedDependent.map(r=>`<b class="text-[#ffaa44]">${r.cat}</b>(非闭环占该类目消耗${(r.open_cost/r.total_cost*100).toFixed(0)}%)`).join('、')}，说明这些类目转化更依赖CID/加粉等前链路，建议评估闭环(小店/直播)转化潜力</p>`:''}
+  `;
+
+  const rows = cats.slice().sort((a,b)=>b.total_cost-a.total_cost);
   document.getElementById('p2-cat-table').innerHTML = rows.map(r=>`
     <tr>
       <td>${r.cat}</td>
-      <td class="text-white">¥${fmtWan(r.total_cost)}</td>
-      <td>${r.total_cust}</td>
-      <td class="text-[#00ff88]">¥${fmtWan(r.closed_cost)}</td>
+      <td class="text-[#00ff88]">¥${fmtNum(r.closed_cost/DAYS)}</td>
       <td>${r.closed_cust}</td>
-      <td class="text-[#ffaa44]">¥${fmtWan(r.open_cost)}</td>
+      <td class="text-[#ffaa44]">¥${fmtNum(r.open_cost/DAYS)}</td>
       <td>${r.open_cust}</td>
+      <td class="text-white">¥${fmtNum(r.total_cost/DAYS)}</td>
       <td>${fmtPct(r.closed_pct)}</td>
+      <td>${r.closed_pct>=0.6?'<span class="badge b-green">闭环主导</span>':r.closed_pct<=0.4?'<span class="badge b-orange">非闭环主导</span>':'<span class="badge b-gray">混合链路</span>'}</td>
     </tr>
   `).join('');
 }
@@ -462,15 +514,31 @@ function renderPart3(){
     if(plate!=='all') rows = rows.filter(r=>r.plate===plate);
     if(tier!=='all') rows = rows.filter(r=>r.tier===tier);
     if(group!=='all') rows = rows.filter(r=>r.group===group);
-    rows.sort((a,b)=>b.ratio-a.ratio);
+
+    // 预期消耗规模计算：抖音广告消耗规模(dy_ad_est) 反推腾讯"正常水位"区间 = dy_ad_est/6 ~ dy_ad_est/3
+    rows.forEach(r=>{
+      r.norm_low = r.dy_ad_est/6;
+      r.norm_high = r.dy_ad_est/3;
+      r.gap = Math.max(0, r.norm_low - r.tx_month_est);
+    });
+
+    const tierOrder = {'潜力机会+增长机会':0, '平均水位':1, '已充分投放':2};
+    rows.sort((a,b)=>{
+      const ta = tierOrder[a.tier]!==undefined?tierOrder[a.tier]:3;
+      const tb = tierOrder[b.tier]!==undefined?tierOrder[b.tier]:3;
+      if(ta!==tb) return ta-tb;
+      return b.gap - a.gap;
+    });
+
     document.getElementById('p3-table').innerHTML = rows.map(r=>`
       <tr>
         <td><span class="badge ${r.plate==='存量盘子'?'b-green':'b-blue'}">${r.plate}</span></td>
         <td>${r.customer}${r.group.includes('极小')?' <span class="badge b-gray" style="font-size:10px">样本极小</span>':''}</td>
         <td>${r.shop_cnt}</td>
-        <td class="text-[#00ff88]">¥${fmtWan(r.dy_gmv)}</td>
         <td class="text-[#00aaff]">¥${fmtNum(r.dy_ad_est)}</td>
+        <td class="text-gray-400">¥${fmtNum(r.norm_low)} ~ ¥${fmtNum(r.norm_high)}</td>
         <td>¥${fmtNum(r.tx_month_est)}</td>
+        <td class="${r.gap>0?'text-[#00ff88] font-semibold':'text-gray-500'}">${r.gap>0?'¥'+fmtNum(r.gap):'-'}</td>
         <td class="${r.ratio>=6?'text-[#00ff88]':r.ratio>=3?'text-[#00aaff]':'text-gray-400'} font-semibold">${r.ratio.toFixed(2)}x</td>
         <td>${tierBadge(r.tier)}</td>
       </tr>
