@@ -86,24 +86,56 @@
     <div class="mb-10">
       <div class="blue-line mb-4"></div>
       <h2 class="section-title">一、核心结论与增长空间</h2>
-      <p class="text-gray-400">综合竞媒(抖音)规模、腾讯Q2现状盘面与客户天花板判断，测算<b class="text-[#00aaff]">腾讯渠道口径</b>下的理论增长空间。<b class="text-[#ffaa44]">口径纠偏：抖音广告消耗规模通常是腾讯同口径的3~6倍，下方所有"增长空间"均已把抖音数字按÷6(保守)~÷3(乐观)折算为腾讯渠道对应理论规模，不是直接挪用抖音消耗数字</b>，并按腾讯居家日用整体"闭环(小店+直播)"/"非闭环(CID/加粉等)"链路占比做拆分</p>
+      <p class="text-gray-400">测算分两步：<b class="text-[#00aaff]">Step 1</b> 先看抖音竞媒对标店铺（存量+潜在共3000家）的规模体量，折算出腾讯渠道理论可承接的总规模区间（即"天花板"）；<b class="text-[#00aaff]">Step 2</b> 结合「三、腾讯渠道Q2规模情况分析」中的实际投流情况，测算真正可挖掘的潜力空间大小与对应客户规模。</p>
+      <p class="text-xs text-orange-300 bg-[rgba(255,170,68,.08)] border border-[rgba(255,170,68,.25)] rounded-lg p-3 mt-3"><i class="fa-solid fa-ruler mr-2"></i><b>口径统一说明：本节「增长空间」相关结论均为月度口径</b>——抖音为月度GMV/广告投流预估；腾讯为Q2实际总消耗÷3个月折算的月均值。下文「二、竞媒规模盘点」沿用月度口径；「三、腾讯Q2盘面」与「四、客户天花板判断」两节为便于按天核算精细数据，改用<b>日均口径</b>展示明细（如"日均消耗"），两者是91天/3个月的等价换算关系，请注意区分，避免与本节的月度结论混淆。</p>
     </div>
+
+    <!-- Step 1 -->
+    <div class="flex items-center gap-2 mb-2">
+      <span class="badge b-blue" style="font-size:13px; padding:5px 14px;">STEP 1</span>
+      <h3 class="text-lg font-semibold">抖音竞媒规模体量 → 腾讯渠道理论承接空间</h3>
+    </div>
+    <p class="text-xs text-gray-500 mb-4">数据源：抖音小店月度榜单共3000家店铺（存量盘子·清洁工具1500家 + 潜在盘子·生活日用/物理保暖&除臭1500家），按TR投流费比测算月度广告投流预估，再按"抖音广告消耗规模通常是腾讯同口径的3~6倍"经验规律，折算为腾讯渠道理论承接规模</p>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+      <div class="card">
+        <div class="text-sm text-gray-400 mb-2">抖音对标店铺GMV规模(月)</div>
+        <div class="kpi-num glow-num text-white" id="c-step1-gmv">-</div>
+        <div class="text-xs text-gray-500 mt-2">存量盘子(清洁工具)+潜在盘子(生活日用/物理保暖&除臭)，合计3000家店铺</div>
+      </div>
+      <div class="card">
+        <div class="text-sm text-gray-400 mb-2">抖音广告投流预估(月)</div>
+        <div class="kpi-num glow-num text-[#00aaff]" id="c-step1-ad">-</div>
+        <div class="text-xs text-gray-500 mt-2">按细分类目TR投流费比(约13%~17%)测算</div>
+      </div>
+      <div class="card border-2 border-[rgba(170,119,255,.25)]">
+        <div class="text-sm text-gray-400 mb-2">折算腾讯渠道理论承接规模(月)</div>
+        <div class="kpi-num glow-num text-[#aa77ff]" id="c-step1-tam">-</div>
+        <div class="text-xs text-gray-500 mt-2">抖音广告投流预估 ÷6(保守)~÷3(乐观)，即"若这3000家店铺对应品牌全部被腾讯渠道承接"的理论总盘子(天花板)</div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="flex items-center gap-2 mb-2">
+      <span class="badge b-blue" style="font-size:13px; padding:5px 14px;">STEP 2</span>
+      <h3 class="text-lg font-semibold">结合腾讯Q2实际投流，测算潜力空间与客户规模</h3>
+    </div>
+    <p class="text-xs text-gray-500 mb-4">腾讯居家日用Q2实际投流（<b class="text-gray-300">全量5131个客户</b>，月消耗约¥<span id="c-step2-txcurrent">-</span>，明细见「三、腾讯渠道Q2规模情况分析」）覆盖范围与"3000家抖音对标店铺"样本并不完全重合（全量客户 vs 特定榜单样本），二者不可直接相减测算空间。故潜力空间基于「四、抖音×腾讯客户匹配」的匹配结果，分两类分别测算：① 已匹配到腾讯、但投流不足抖音对标规模6倍的<b class="text-[#00ff88]">13个"潜力机会"客户</b> → 追赶空间；② 抖音已有可观规模、但腾讯<b class="text-[#ffaa44]">尚无任何投放记录</b>的<b class="text-[#ffaa44]">2813家未匹配店铺</b> → 未开发空间</p>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
       <div class="card border-2 border-[rgba(0,255,136,.25)]">
-        <div class="text-sm text-gray-400 mb-2">① 已投放"潜力机会"客户追赶空间(腾讯口径/月)</div>
+        <div class="text-sm text-gray-400 mb-2">① 已投放"潜力机会"客户追赶空间(月)</div>
         <div class="kpi-num glow-num text-[#00ff88]" id="c-gap-1">-</div>
-        <div class="text-xs text-gray-500 mt-2">已匹配到腾讯的潜力机会客户：腾讯正常水位下限(抖音规模÷6) − 腾讯当前实际消耗，逐客户求和后折算月度</div>
+        <div class="text-xs text-gray-500 mt-2">对应<b class="text-[#00ff88]">13个</b>潜力机会客户：腾讯正常水位下限(抖音规模÷6) − 腾讯当前实际消耗，逐客户求和</div>
       </div>
       <div class="card border-2 border-[rgba(0,170,255,.25)]">
-        <div class="text-sm text-gray-400 mb-2">② 未开发客户池潜在空间(腾讯口径/月)</div>
+        <div class="text-sm text-gray-400 mb-2">② 未开发客户池潜在空间(月)</div>
         <div class="kpi-num glow-num text-[#00aaff]" id="c-gap-2">-</div>
-        <div class="text-xs text-gray-500 mt-2">未匹配到腾讯任何客户的抖音店铺：抖音广告消耗预估 ÷6(保守)~÷3(乐观)，折算为腾讯渠道理论可承接规模</div>
+        <div class="text-xs text-gray-500 mt-2">对应<b class="text-[#00aaff]">2813家</b>未匹配店铺：抖音广告消耗预估 ÷6(保守)~÷3(乐观)</div>
       </div>
       <div class="card border-2 border-[rgba(170,119,255,.25)]">
-        <div class="text-sm text-gray-400 mb-2">③ 理论总增长空间(①+②，腾讯口径/月)</div>
+        <div class="text-sm text-gray-400 mb-2">③ 理论总增长空间(①+②，月)</div>
         <div class="kpi-num glow-num text-[#aa77ff]" id="c-gap-3">-</div>
-        <div class="text-xs text-gray-500 mt-2">相对腾讯居家日用当前月化消耗的倍数见下方图表</div>
+        <div class="text-xs text-gray-500 mt-2">相对腾讯居家日用当前月化消耗¥<span id="c-gap3-ref">-</span>的倍数见下方图表</div>
       </div>
     </div>
 
@@ -114,7 +146,7 @@
     </div>
 
     <div class="card mb-10">
-      <h3 class="text-lg font-semibold mb-4">当前腾讯 vs 理论空间 对比（腾讯口径，保守估）</h3>
+      <h3 class="text-lg font-semibold mb-4">当前腾讯 vs 理论空间 对比（腾讯口径，保守估，月度）</h3>
       <canvas id="chart-gap" height="120"></canvas>
     </div>
 
@@ -710,6 +742,19 @@ function renderPart3(){
 }
 
 function renderPart4(){
+  // ==== Step 1：抖音竞媒规模体量 → 腾讯渠道理论承接空间（月度口径） ====
+  const p1 = DATA.part1_total;
+  const gmvStep1 = p1['存量盘子'].gmv_sum + p1['潜在盘子'].gmv_sum;
+  const adStep1 = p1['存量盘子'].ad_est_sum + p1['潜在盘子'].ad_est_sum;
+  const tamLow = adStep1/6, tamHigh = adStep1/3;
+  document.getElementById('c-step1-gmv').innerText = fmtYi(gmvStep1)+'/月';
+  document.getElementById('c-step1-ad').innerText = fmtYi(adStep1)+'/月';
+  document.getElementById('c-step1-tam').innerText = fmtWan(tamLow)+' ~ '+fmtWan(tamHigh)+'/月';
+
+  // ==== Step 2：结合腾讯Q2实际投流，测算潜力空间 ====
+  const txCurrentForStep2 = DATA.part2_top.total_cost/DATA.part2_top.days*30;
+  document.getElementById('c-step2-txcurrent').innerText = fmtWan(txCurrentForStep2);
+
   // ① 追赶空间：逐"潜力机会+有效对比"客户，以"腾讯正常水位下限(抖音月度规模÷6) − 腾讯当前实际月消耗(真实日均×30)"求和，已是腾讯口径，不能直接用抖音原始数字相减
   const oppRows = DATA.part3_customers.filter(r=>r.tier==='潜力机会+增长机会' && r.group==='有效对比客户');
   const gap1 = oppRows.reduce((sum,r)=>{
@@ -731,6 +776,7 @@ function renderPart4(){
   document.getElementById('c-gap-1').innerText = '¥'+fmtWan(gap1)+'/月';
   document.getElementById('c-gap-2').innerText = '¥'+fmtWan(gap2Low)+' ~ ¥'+fmtWan(gap2High)+'/月';
   document.getElementById('c-gap-3').innerText = '¥'+fmtWan(gap3Low)+' ~ ¥'+fmtWan(gap3High)+'/月';
+  document.getElementById('c-gap3-ref').innerText = fmtWan(txCurrentForStep2)+'/月';
 
   // 闭环/非闭环拆分：按腾讯居家日用Q2整体链路消耗占比近似分摊
   const t = DATA.part2_top;
