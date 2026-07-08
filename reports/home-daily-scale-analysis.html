@@ -216,6 +216,23 @@
       <div id="p2-verdict"></div>
     </div>
 
+    <div class="card mb-10">
+      <h3 class="text-lg font-semibold mb-2 flex items-center gap-2"><i class="fa-solid fa-diagram-project text-[#00aaff]"></i>叶子类目聚类总览</h3>
+      <p class="text-xs text-gray-500 mb-4">原始数据仅到31个叶子类目粒度，无官方三级聚类标签，以下基于品类性质<b class="text-gray-300">人工归纳3个维度</b>，可切换查看不同视角下的规模分布：① <b class="text-gray-300">场景聚类</b>——按使用场景归入7大类，识别规模主力场景与投放主战场；② <b class="text-gray-300">复购频次</b>——高频耗材型(易耗品复购快)/中频消耗型/低频耐用型(一次性购买为主)，反映该类目对"持续复投"的贡献潜力；③ <b class="text-gray-300">季节性</b>——季节性强/季节性中等/全年平稳，反映消耗是否随季节波动，辅助判断投放节奏与蓄水时机</p>
+      <div class="flex gap-3 mb-5" id="p2-cluster-tabs">
+        <div class="tab-btn active" data-dim="scene">场景聚类</div>
+        <div class="tab-btn" data-dim="freq">复购频次</div>
+        <div class="tab-btn" data-dim="season">季节性</div>
+      </div>
+      <canvas id="chart-cluster" height="150" class="mb-6"></canvas>
+      <div class="table-wrapper">
+        <table class="dt">
+          <thead><tr><th id="p2-cluster-dim-th">场景聚类</th><th>日均总消耗</th><th>消耗占比</th><th>闭环占比</th><th>客户数</th><th>代表性叶子类目(Top3消耗)</th></tr></thead>
+          <tbody id="p2-cluster-table"></tbody>
+        </table>
+      </div>
+    </div>
+
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
       <div class="card">
         <h3 class="text-lg font-semibold mb-1">闭环链路内 · 类目消耗/客户占比 Top8</h3>
@@ -231,10 +248,16 @@
 
     <div class="card">
       <h3 class="text-lg font-semibold mb-4">二级类目v2 × 链路闭环状态 日均消耗/客户数明细</h3>
-      <p class="text-sm text-gray-400 mb-4">按类目日均总消耗降序排列，双列展示闭环/非闭环拆分，并标注该类目的主导链路</p>
+      <p class="text-sm text-gray-400 mb-4">按类目日均总消耗降序排列，双列展示闭环/非闭环拆分，并标注该类目的主导链路；新增场景聚类/复购频次/季节性标签，可筛选下钻</p>
+      <div class="flex flex-wrap gap-3 mb-4 items-center">
+        <span class="text-sm text-gray-400 mr-2">筛选：</span>
+        <select class="filter-select" id="p2-filter-scene"><option value="all">全部场景聚类</option></select>
+        <select class="filter-select" id="p2-filter-freq"><option value="all">全部复购频次</option></select>
+        <select class="filter-select" id="p2-filter-season"><option value="all">全部季节性</option></select>
+      </div>
       <div class="table-wrapper">
         <table class="dt">
-          <thead><tr><th>商品二级类目v2</th><th>闭环日均消耗</th><th>闭环客户数</th><th>非闭环日均消耗</th><th>非闭环客户数</th><th>总日均消耗</th><th>闭环消耗占比</th><th>主导链路判定</th></tr></thead>
+          <thead><tr><th>商品二级类目v2</th><th>场景聚类</th><th>复购频次</th><th>季节性</th><th>闭环日均消耗</th><th>闭环客户数</th><th>非闭环日均消耗</th><th>非闭环客户数</th><th>总日均消耗</th><th>闭环消耗占比</th><th>主导链路判定</th></tr></thead>
           <tbody id="p2-cat-table"></tbody>
         </table>
       </div>
@@ -309,6 +332,43 @@ function fmtWan(n){ return (n/10000).toFixed(1)+'万'; }
 function fmtYi(n){ return (n/100000000).toFixed(2)+'亿'; }
 function fmtNum(n){ return Math.round(n).toLocaleString('zh-CN'); }
 function fmtPct(n){ return (n*100).toFixed(1)+'%'; }
+
+// 叶子类目聚类映射：原始数据仅到31个叶子类目粒度，无官方三级分类标签，此处基于类目性质人工归纳3个维度
+// scene: 使用场景(7大类) | freq: 复购频次(高频耗材型/中频消耗型/低频耐用型) | season: 季节性(季节性强/季节性中等/全年平稳)
+const CAT_META = {
+  '厨房用具':            {scene:'厨房餐饮',    freq:'低频耐用型', season:'全年平稳'},
+  '餐饮用具':            {scene:'厨房餐饮',    freq:'中频消耗型', season:'全年平稳'},
+  '清洁工具':            {scene:'清洁洗护',    freq:'中频消耗型', season:'季节性中等'},
+  '洗护清洁/除臭剂/纸品': {scene:'清洁洗护',    freq:'高频耗材型', season:'季节性中等'},
+  '家庭清洁纸品':        {scene:'清洁洗护',    freq:'高频耗材型', season:'全年平稳'},
+  '家纺':               {scene:'家纺纺织',    freq:'低频耐用型', season:'季节性强'},
+  '收纳整理':            {scene:'收纳陈设',    freq:'低频耐用型', season:'全年平稳'},
+  '家居饰品':            {scene:'收纳陈设',    freq:'低频耐用型', season:'全年平稳'},
+  '架/箱类':             {scene:'收纳陈设',    freq:'低频耐用型', season:'全年平稳'},
+  '家装主材':            {scene:'收纳陈设',    freq:'低频耐用型', season:'季节性中等'},
+  '灯饰照明':            {scene:'收纳陈设',    freq:'低频耐用型', season:'季节性中等'},
+  '居家日用品':          {scene:'收纳陈设',    freq:'低频耐用型', season:'全年平稳'},
+  '个护工具':            {scene:'个人护理',    freq:'中频消耗型', season:'全年平稳'},
+  '足部洗护':            {scene:'个人护理',    freq:'高频耗材型', season:'季节性强'},
+  '口腔洗护':            {scene:'个人护理',    freq:'高频耗材型', season:'全年平稳'},
+  '身体洗护':            {scene:'个人护理',    freq:'高频耗材型', season:'全年平稳'},
+  '手部洗护':            {scene:'个人护理',    freq:'高频耗材型', season:'全年平稳'},
+  '颈部洗护':            {scene:'个人护理',    freq:'高频耗材型', season:'季节性强'},
+  '头发洗护/造型':       {scene:'个人护理',    freq:'高频耗材型', season:'全年平稳'},
+  '眼部洗护':            {scene:'个人护理',    freq:'高频耗材型', season:'全年平稳'},
+  '女性护理':            {scene:'个人护理',    freq:'高频耗材型', season:'全年平稳'},
+  '成人护理':            {scene:'个人护理',    freq:'高频耗材型', season:'全年平稳'},
+  '胸部护理':            {scene:'个人护理',    freq:'低频耐用型', season:'全年平稳'},
+  '个人清洁护理套装':    {scene:'个人护理',    freq:'高频耗材型', season:'全年平稳'},
+  '医药非药械类':        {scene:'健康医药',    freq:'中频消耗型', season:'全年平稳'},
+  '运动装备':            {scene:'运动文娱综合', freq:'低频耐用型', season:'季节性中等'},
+  '中小型健身器材':      {scene:'运动文娱综合', freq:'低频耐用型', season:'全年平稳'},
+  '乐器':                {scene:'运动文娱综合', freq:'低频耐用型', season:'全年平稳'},
+  '生活用品':            {scene:'运动文娱综合', freq:'中频消耗型', season:'全年平稳'},
+  '生活电器':            {scene:'运动文娱综合', freq:'低频耐用型', season:'全年平稳'},
+  '节庆用品/礼品/包装':  {scene:'运动文娱综合', freq:'中频消耗型', season:'季节性强'},
+};
+function catMeta(cat){ return CAT_META[cat] || {scene:'其他', freq:'其他', season:'其他'}; }
 
 function tierBadge(t){
   if(t==='潜力机会+增长机会') return `<span class="badge b-green">潜力机会+增长机会</span>`;
@@ -485,19 +545,110 @@ function renderPart2(){
     ${nonClosedDependent.length? `<p class="text-xs text-gray-500 mt-3"><i class="fa-solid fa-circle-info mr-1"></i>规模较大且高度依赖非闭环链路的类目：${nonClosedDependent.map(r=>`<b class="text-[#ffaa44]">${r.cat}</b>(非闭环占该类目消耗${(r.open_cost/r.total_cost*100).toFixed(0)}%)`).join('、')}，说明这些类目转化更依赖CID/加粉等前链路，建议评估闭环(小店/直播)转化潜力</p>`:''}
   `;
 
-  const rows = cats.slice().sort((a,b)=>b.total_cost-a.total_cost);
-  document.getElementById('p2-cat-table').innerHTML = rows.map(r=>`
-    <tr>
-      <td>${r.cat}</td>
-      <td class="text-[#00ff88]">¥${fmtNum(r.closed_cost/DAYS)}</td>
-      <td>${r.closed_cust}</td>
-      <td class="text-[#ffaa44]">¥${fmtNum(r.open_cost/DAYS)}</td>
-      <td>${r.open_cust}</td>
-      <td class="text-white">¥${fmtNum(r.total_cost/DAYS)}</td>
-      <td>${fmtPct(r.closed_pct)}</td>
-      <td>${r.closed_pct>=0.6?'<span class="badge b-green">闭环主导</span>':r.closed_pct<=0.4?'<span class="badge b-orange">非闭环主导</span>':'<span class="badge b-gray">混合链路</span>'}</td>
-    </tr>
-  `).join('');
+  // ==== 叶子类目聚类总览 ====
+  const DIM_LABEL = {scene:'场景聚类', freq:'复购频次', season:'季节性'};
+  let clusterChart = null;
+  let currentDim = 'scene';
+
+  function renderCluster(dim){
+    currentDim = dim;
+    document.getElementById('p2-cluster-dim-th').innerText = DIM_LABEL[dim];
+    const groups = {};
+    cats.forEach(r=>{
+      const key = catMeta(r.cat)[dim];
+      if(!groups[key]) groups[key] = {key, total_cost:0, closed_cost:0, cust:0, items:[]};
+      groups[key].total_cost += r.total_cost;
+      groups[key].closed_cost += r.closed_cost;
+      groups[key].cust += r.total_cust;
+      groups[key].items.push(r);
+    });
+    const list = Object.values(groups).sort((a,b)=>b.total_cost-a.total_cost);
+    const grandTotal = list.reduce((s,g)=>s+g.total_cost,0);
+
+    if(clusterChart) clusterChart.destroy();
+    clusterChart = new Chart(document.getElementById('chart-cluster'), {
+      type:'bar',
+      data:{
+        labels: list.map(g=>g.key),
+        datasets:[{
+          label:'日均消耗占比',
+          data: list.map(g=>+(g.total_cost/grandTotal*100).toFixed(1)),
+          backgroundColor:'#00aaff',
+          borderRadius:6
+        }]
+      },
+      options:{
+        indexAxis:'y',
+        plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label:(ctx)=>ctx.parsed.x+'%' } } },
+        scales:{ x:{ ticks:{ color:'#999', callback:v=>v+'%' }, grid:{ color:'rgba(255,255,255,.05)' } }, y:{ ticks:{ color:'#ccc' }, grid:{ display:false } } }
+      }
+    });
+
+    document.getElementById('p2-cluster-table').innerHTML = list.map(g=>{
+      const top3 = g.items.slice().sort((a,b)=>b.total_cost-a.total_cost).slice(0,3).map(it=>it.cat).join('、');
+      const closedPct = g.total_cost>0 ? g.closed_cost/g.total_cost : 0;
+      return `
+        <tr>
+          <td>${g.key}</td>
+          <td class="text-white">¥${fmtNum(g.total_cost/DAYS)}</td>
+          <td class="text-[#00aaff]">${fmtPct(g.total_cost/grandTotal)}</td>
+          <td>${fmtPct(closedPct)}</td>
+          <td>${g.cust}</td>
+          <td class="text-gray-400">${top3}</td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  document.querySelectorAll('#p2-cluster-tabs .tab-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('#p2-cluster-tabs .tab-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      renderCluster(btn.dataset.dim);
+    });
+  });
+  renderCluster('scene');
+
+  // 填充明细表筛选下拉框
+  const sceneOpts = [...new Set(cats.map(r=>catMeta(r.cat).scene))];
+  const freqOpts = [...new Set(cats.map(r=>catMeta(r.cat).freq))];
+  const seasonOpts = [...new Set(cats.map(r=>catMeta(r.cat).season))];
+  document.getElementById('p2-filter-scene').innerHTML += sceneOpts.map(v=>`<option value="${v}">${v}</option>`).join('');
+  document.getElementById('p2-filter-freq').innerHTML += freqOpts.map(v=>`<option value="${v}">${v}</option>`).join('');
+  document.getElementById('p2-filter-season').innerHTML += seasonOpts.map(v=>`<option value="${v}">${v}</option>`).join('');
+
+  function renderCatTable(){
+    const fs = document.getElementById('p2-filter-scene').value;
+    const ff = document.getElementById('p2-filter-freq').value;
+    const fse = document.getElementById('p2-filter-season').value;
+    let rows = cats.slice();
+    if(fs!=='all') rows = rows.filter(r=>catMeta(r.cat).scene===fs);
+    if(ff!=='all') rows = rows.filter(r=>catMeta(r.cat).freq===ff);
+    if(fse!=='all') rows = rows.filter(r=>catMeta(r.cat).season===fse);
+    rows = rows.sort((a,b)=>b.total_cost-a.total_cost);
+    document.getElementById('p2-cat-table').innerHTML = rows.map(r=>{
+      const m = catMeta(r.cat);
+      return `
+      <tr>
+        <td>${r.cat}</td>
+        <td><span class="badge b-blue">${m.scene}</span></td>
+        <td><span class="badge b-orange">${m.freq}</span></td>
+        <td><span class="badge b-gray">${m.season}</span></td>
+        <td class="text-[#00ff88]">¥${fmtNum(r.closed_cost/DAYS)}</td>
+        <td>${r.closed_cust}</td>
+        <td class="text-[#ffaa44]">¥${fmtNum(r.open_cost/DAYS)}</td>
+        <td>${r.open_cust}</td>
+        <td class="text-white">¥${fmtNum(r.total_cost/DAYS)}</td>
+        <td>${fmtPct(r.closed_pct)}</td>
+        <td>${r.closed_pct>=0.6?'<span class="badge b-green">闭环主导</span>':r.closed_pct<=0.4?'<span class="badge b-orange">非闭环主导</span>':'<span class="badge b-gray">混合链路</span>'}</td>
+      </tr>
+    `;
+    }).join('');
+  }
+  document.getElementById('p2-filter-scene').addEventListener('change', renderCatTable);
+  document.getElementById('p2-filter-freq').addEventListener('change', renderCatTable);
+  document.getElementById('p2-filter-season').addEventListener('change', renderCatTable);
+  renderCatTable();
 }
 
 function renderPart3(){
